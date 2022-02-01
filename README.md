@@ -3,4 +3,4 @@
 ### Current members
 #### Ashwin Nair
 #### Austin McBurney
-#### Christian Pentayvin
+#### Christian Pentavin
