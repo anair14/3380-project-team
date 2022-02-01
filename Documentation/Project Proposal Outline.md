@@ -1,6 +1,6 @@
-#Project Proposal
+# Project Proposal
 
-##Project Portfolio
+## Project Portfolio
 - Team
 	- Team name
 	- Team members
