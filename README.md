@@ -4,3 +4,5 @@
 #### Ashwin Nair
 #### Austin McBurney
 #### Christian Pentavin
+#### Brandon Domangue
+#### Johnathan Lagarrigue
