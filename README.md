@@ -5,6 +5,6 @@
 #### Austin McBurney
 #### Christian Pentavin
 #### Brandon Domangue
-#### Johnathan Lagarrigue
+#### Jonathan Lagarrigue
 #### Jacob Carter
 #### David Robi
