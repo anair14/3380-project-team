@@ -6,3 +6,5 @@
 #### Christian Pentavin
 #### Brandon Domangue
 #### Johnathan Lagarrigue
+#### Jacob Carter
+#### David Robi
