@@ -1,7 +1,17 @@
 from .app import *
+from flask import Flask
+
 
 def flask_builder():
-    pass
+    app = Flask(__name__)
+
+    with app.app_context():
+
+        # db stuff
+        pass
+
+    return app
+
 
 if __name__ == '__main__':
     app = flask_builder()
