@@ -5,43 +5,41 @@ from flask import render_template
 @app.route('/')
 @app.route('/index')
 def index():
-    return 'Hello, index.'
+    return render_template('index.html', title='Index')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # will handle both logging in and registering new users
-    pass
+    return render_template('index.html', title='Login')
 
 
 @app.route('/logout')
 def logout():
-    pass
+    return render_template('index.html', title='Logout')
 
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
-def user():
-    # handle editing and displaying profile
-    pass
+def user(username: str):
+    return render_template('index.html', title=f'User: {username}')
 
 
 @app.route('/meal/<meal_id>')
-def meal():
-    pass
+def meal(meal_id: int):
+    return render_template('index.html', title=f'Meal: {meal_id}')
 
 
 @app.route('/meals')
 def meals():
-    pass
+    return render_template('index.html', title='Meals')
 
 
 @app.route('/exercise/<exercise_id>')
-def exercise():
-    pass
+def exercise(exercise_id: int):
+    return render_template('index.html', title=f'Exercise: {exercise_id}')
 
 
 @app.route('/exercises')
 def exercises():
-    pass
+    return render_template('index.html', title='Exercises')
 
 # vim: ft=python ts=4 sw=4 sts=4
