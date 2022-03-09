@@ -1,1 +1,3 @@
-FLASK_APP=app:flask_builder
+FLASK_ENV=development
+FLASK_DEBUG=true
+FLASK_APP=manage:app
