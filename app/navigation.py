@@ -10,6 +10,7 @@ def navbar() -> Navbar:
                   View('Home', 'index'),
                   View('Login', 'login'),
                   View('Logout', 'logout'),
+                  View('Register', 'register'),
                   View('Meals', 'meals'),
                   View('Exercises', 'exercises'))
 

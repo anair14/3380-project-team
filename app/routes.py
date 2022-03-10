@@ -1,5 +1,6 @@
 from flask import current_app as app
 from flask import render_template
+from .forms import RegistrationForm
 
 
 @app.route('/')
@@ -16,6 +17,12 @@ def login():
 @app.route('/logout')
 def logout():
     return render_template('index.html', title='Logout')
+
+
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
