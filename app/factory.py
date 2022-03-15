@@ -25,7 +25,7 @@ def create_app(config: str = None) -> Flask:
     bootstrap.init_app(app)
 
     with app.app_context():
-        pass
+        from .routes import index
 
     return app
 
