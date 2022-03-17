@@ -1,8 +1,8 @@
 {% block navbar %}
 {% if current_user.is_authenticated %}
-{{ nav.navbar.render() }}
+{{ nav.auth_nav.render() }}
 {% else %}
-{{ nav.secnavbar.render() }}
+{{ nav.not_auth_nav.render() }}
 {% endif %}
 {% endblock navbar %}
 
