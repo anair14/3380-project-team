@@ -1,5 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import (StringField,
+                     PasswordField,
+                     BooleanField,
+                     SubmitField,
+                     DateField,
+                     FloatField)
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from .models.user import User
 
@@ -29,5 +34,14 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=self.email.data).first()
         if user is not None:
             raise ValidationError('Email address already taken.')
+
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    first_name = StringField()
+    last_name = StringField()
+    birthdate = DateField()
+    height = FloatField()
+    weight = FloatField()
 
 # vim: ft=python ts=4 sw=4 sts=4 et

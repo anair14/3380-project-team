@@ -1,9 +1,13 @@
 from flask import current_app as app
 from flask import render_template, redirect, flash, url_for
-from flask_login import current_user, login_user, logout_user
-from .forms import RegistrationForm, LoginForm
+from flask_login import (current_user,
+                         login_user,
+                         logout_user,
+                         login_required)
+
 from .models import db
 from .models.user import User
+from .forms import RegistrationForm, LoginForm, EditProfileForm
 
 
 @app.route('/')
@@ -52,13 +56,24 @@ def register():
 
 
 @app.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profile():
-    pass
+    return redirect(url_for('user', username=current_user.username))
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
 
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
+@login_required
 def user(username: str):
-    return render_template('index.html', title=f'User: {username}')
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('user.html', user=user)
 
 
 @app.route('/meal/<meal_id>')

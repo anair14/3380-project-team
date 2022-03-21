@@ -8,6 +8,7 @@ nav = Nav()
 def navbar() -> Navbar:
     return Navbar('Fitness App',
                   View('Home', 'index'),
+                  View('Profile', 'profile'),
                   View('Login', 'login'),
                   View('Logout', 'logout'),
                   View('Register', 'register'),
