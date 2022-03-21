@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
     def set_password(self, new_password: str) -> None:
         self.password_hash = generate_password_hash(new_password)
 
-    def check_password_hash(self, password: str) -> bool:
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
     @staticmethod
