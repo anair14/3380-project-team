@@ -4,6 +4,13 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from .models.user import User
 
 
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
+
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -22,6 +29,5 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=self.email.data)
         if user is not None:
             raise ValidationError('Email address already taken.')
-
 
 # vim: ft=python ts=4 sw=4 sts=4 et

@@ -1,6 +1,6 @@
-from flask import current_app as app
+from flask import current_app as app, redirect, url_for
 from flask import render_template
-from .forms import RegistrationForm
+from .forms import RegistrationForm, LoginForm
 
 
 @app.route('/')
@@ -11,7 +11,11 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('index.html', title='Login')
+    form = LoginForm()
+    if form.validate_on_submit():
+        # login
+        return redirect(url_for('index'))
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
@@ -22,7 +26,7 @@ def logout():
 @app.route('/register')
 def register():
     form = RegistrationForm()
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', form=form)
 
 
 @app.route('/user/<username>', methods=['GET', 'POST'])

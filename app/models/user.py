@@ -29,4 +29,8 @@ class User(UserMixin, db.Model):
     def check_password_hash(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
+    @staticmethod
+    def loader(user_id: int):
+        return User.query.get(int(user_id))
+
 # vim: ft=python ts=4 sw=4 sts=4 et
