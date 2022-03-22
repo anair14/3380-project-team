@@ -7,6 +7,7 @@ from flask_login import (current_user,
 
 from .models import db
 from .models.user import User
+from .utils import complete_profile_required
 from .forms import RegistrationForm, LoginForm, EditProfileForm
 
 
@@ -59,6 +60,7 @@ def register():
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
+@complete_profile_required
 def profile():
     return redirect(url_for('user', username=current_user.username))
 
@@ -79,21 +81,29 @@ def user(username: str):
 
 
 @app.route('/meal/<meal_id>')
+@login_required
+@complete_profile_required
 def meal(meal_id: int):
     return render_template('index.html', title=f'Meal: {meal_id}')
 
 
 @app.route('/meals')
+@login_required
+@complete_profile_required
 def meals():
     return render_template('index.html', title='Meals')
 
 
 @app.route('/exercise/<exercise_id>')
+@login_required
+@complete_profile_required
 def exercise(exercise_id: int):
     return render_template('index.html', title=f'Exercise: {exercise_id}')
 
 
 @app.route('/exercises')
+@login_required
+@complete_profile_required
 def exercises():
     return render_template('index.html', title='Exercises')
 
