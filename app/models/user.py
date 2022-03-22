@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), index=True, unique=True)
     email = db.Column(db.String(150), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    profile_completed = db.column(db.Boolean(), required=True)
 
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
