@@ -3,4 +3,7 @@
 
 {% block content %}
   <h1>{{ user.username }}</h1>
+  {% if user == current_user %}
+  <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
+  {% endif %}
 {% endblock content %}
