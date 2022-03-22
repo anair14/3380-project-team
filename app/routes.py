@@ -107,4 +107,12 @@ def exercise(exercise_id: int):
 def exercises():
     return render_template('index.html', title='Exercises')
 
+
+@app.route('/toggle_profile_complete')
+@login_required
+def toggle_profile_complete():
+    current_user.profile_completed = not current_user.profile_completed
+    db.session.commit()
+    return redirect(url_for('index'))
+
 # vim: ft=python ts=4 sw=4 sts=4
