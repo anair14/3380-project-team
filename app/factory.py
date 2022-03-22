@@ -21,6 +21,7 @@ def create_app(config: str = None) -> Flask:
     bootstrap = Bootstrap()
     login = LoginManager()
     login.user_loader(User.loader)
+    login.login_view = "login"
 
     db.init_app(app)
     migrate.init_app(app, db)
