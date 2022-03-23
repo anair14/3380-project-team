@@ -9,6 +9,18 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from .models.user import User
 
 
+def validate_username(self, username) -> None:
+    user = User.query.filter_by(username=self.username.data).first()
+    if user is not None:
+        raise ValidationError('Username already taken.')
+
+
+def validate_email(self, email) -> None:
+    user = User.query.filter_by(email=self.email.data).first()
+    if user is not None:
+        raise ValidationError('Email address already taken.')
+
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -17,27 +29,23 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField(
+        'Username', validators=[DataRequired(), validate_username]
+    )
+    email = StringField(
+        'Email', validators=[DataRequired(), Email(), validate_email]
+    )
     password = PasswordField('Password', validators=[DataRequired()])
     password_repeat = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')]
     )
     submit = SubmitField('Register')
 
-    def validate_username(self, username) -> None:
-        user = User.query.filter_by(username=self.username.data).first()
-        if user is not None:
-            raise ValidationError('Username already taken.')
-
-    def validate_email(self, email) -> None:
-        user = User.query.filter_by(email=self.email.data).first()
-        if user is not None:
-            raise ValidationError('Email address already taken.')
-
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+    username = StringField(
+        'Username', validators=[DataRequired(), validate_username]
+    )
     first_name = StringField()
     last_name = StringField()
     birthdate = DateField()
