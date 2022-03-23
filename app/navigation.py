@@ -13,7 +13,8 @@ def navbar() -> Navbar:
                   View('Logout', 'logout'),
                   View('Register', 'register'),
                   View('Meals', 'meals'),
-                  View('Exercises', 'exercises'))
+                  View('Exercises', 'exercises'),
+                  View('Account', 'account'))
 
 
 class AuthenticatedUser(Text):

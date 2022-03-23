@@ -52,4 +52,12 @@ class EditProfileForm(FlaskForm):
     height = FloatField()
     weight = FloatField()
 
+
+class EditAccountForm(FlaskForm):
+    new_password = PasswordField()
+    new_password_repeat = PasswordField()
+    old_password = PasswordField()
+    email = StringField()
+    new_email = StringField()
+
 # vim: ft=python ts=4 sw=4 sts=4 et

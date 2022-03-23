@@ -8,7 +8,7 @@ from flask_login import (current_user,
 from .models import db
 from .models.user import User
 from .utils import complete_profile_required
-from .forms import RegistrationForm, LoginForm, EditProfileForm
+from .forms import RegistrationForm, LoginForm, EditProfileForm, EditAccountForm
 
 
 @app.route('/')
@@ -71,6 +71,15 @@ def edit_profile():
     form = EditProfileForm()
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = EditAccountForm()
+    return render_template(
+        'edit_account.html', title='Edit Account', form=form
+    )
 
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
