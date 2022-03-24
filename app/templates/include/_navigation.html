@@ -1,5 +1,9 @@
 {% block navbar %}
+{% if current_user.is_authenticated %}
 {{ nav.navbar.render() }}
+{% else %}
+{{ nav.secnavbar.render() }}
+{% endif %}
 {% endblock navbar %}
 
 {# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}

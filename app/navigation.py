@@ -16,6 +16,11 @@ def navbar() -> Navbar:
                   View('Exercises', 'exercises'),
                   View('Account', 'account'))
 
+@nav.navigation()
+def secnavbar() -> Navbar:
+    return Navbar('Fitness App',
+                  View('Login','login'),
+                  View('Register','register'))
 
 class AuthenticatedUser(Text):
     def __init__(self, text):
