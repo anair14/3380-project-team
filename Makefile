@@ -1,14 +1,28 @@
 clean:
 	rm -rf migrations data/app.db
 
-init-db:
+setup:
+	python -m venv venv
+	pip install -r requirements.txt -r requirements-dev.txt
+
+## sourcing doesn't work like it should, research
+# venv-activate:
+# ifeq ($(OS), Windows_NT)
+# 	.\venv\Script\activate;
+# else
+# 	. ./venv/bin/activate;
+# endif
+
+db-init:
 	flask db init
 
-migrate-db:
+db-migrate:
 	flask db migrate
 
-upgrade-db:
+db-upgrade:
 	flask db upgrade
 
 cloc:
 	pygount --format=summary app/
+
+# vim: ft=make ts=4 sw=4 sts=4 noet
