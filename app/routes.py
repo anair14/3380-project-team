@@ -1,5 +1,9 @@
 from flask import current_app as app
-from flask import render_template, redirect, flash, url_for
+from flask import (render_template,
+                   redirect,
+                   flash,
+                   url_for,
+                   request)
 from flask_login import (current_user,
                          login_user,
                          logout_user,
@@ -69,6 +73,22 @@ def profile():
 @login_required
 def edit_profile():
     form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.first_name.data
+        current_user.birthdate = form.birthdate.data
+        current_user.height = form.height.data
+        current_user.weight = form.weight.data
+        current_user.profile_completed = True
+        db.session.commit()
+        flash('Changes have been saved.')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.birthdate.data = current_user.birthdate
+        form.height.data = current_user.height
+        form.weight.data = current_user.weight
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
 

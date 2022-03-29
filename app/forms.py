@@ -5,7 +5,8 @@ from wtforms import (StringField,
                      SubmitField,
                      DateField,
                      FloatField)
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
+    Length, NumberRange
 from .models.user import User
 
 
@@ -43,17 +44,18 @@ class RegistrationForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-    username = StringField(
-        'Username', validators=[DataRequired(), validate_username]
-    )
-    first_name = StringField()
-    last_name = StringField()
+    first_name = StringField(validators=[Length(min=1)])
+    last_name = StringField(validators=[Length(min=1)])
     birthdate = DateField()
+    # how do we handle height? convert a string to integer values?
+    # what units are we using?
     height = FloatField()
-    weight = FloatField()
+    weight = FloatField(validators=[NumberRange(min=0)])
+    submit = SubmitField('Update Profile')
 
 
 class EditAccountForm(FlaskForm):
+    username = StringField('Username', validators=[validate_username])
     new_password = PasswordField()
     new_password_repeat = PasswordField()
     old_password = PasswordField()

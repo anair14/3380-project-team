@@ -1,13 +1,17 @@
+from datetime import date
+from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_property
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), index=True, unique=True, nullable=False)
+    username = db.Column(db.String(150), index=True, unique=True,
+                         nullable=False)
     email = db.Column(db.String(150), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     profile_completed = db.Column(db.Boolean(), default=False, nullable=False)
@@ -17,6 +21,7 @@ class User(UserMixin, db.Model):
     birthdate = db.Column(db.Date())
     height = db.Column(db.Float())
     weight = db.Column(db.Float())
+    # display_metric = db.Boolean
 
     exercise_plan = ExercisePlan()
     meal_plan = MealPlan()
@@ -29,6 +34,13 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+    @hybrid_property
+    def age(self):
+        today = date.today()
+        return ((today.year - self.birthdate.year)
+                - ((today.month, today.day)
+                   < (self.birthdate.month, self.birthdate.day)))
 
     @staticmethod
     def loader(user_id: int):

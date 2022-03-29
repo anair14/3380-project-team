@@ -2,8 +2,15 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
+  {% if user.profile_completed %}
+  <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+  {% else %}
   <h1>{{ user.username }}</h1>
+  {% endif %}
   {% if user == current_user %}
+  <p>Age: {{ user.age }}</p>
+  <p>Height: {{ user.height }}</p>
+  <p>Weight: {{ user.weight }}</p>
   <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
   {% endif %}
 {% endblock content %}
