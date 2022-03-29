@@ -5,21 +5,16 @@ from wtforms import (StringField,
                      SubmitField,
                      DateField,
                      FloatField)
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
-    Length, NumberRange
+from wtforms.validators import (DataRequired,
+                                Email,
+                                EqualTo,
+                                Length,
+                                NumberRange)
 from .models.user import User
-
-
-def validate_username(self, username) -> None:
-    user = User.query.filter_by(username=self.username.data).first()
-    if user is not None:
-        raise ValidationError('Username already taken.')
-
-
-def validate_email(self, email) -> None:
-    user = User.query.filter_by(email=self.email.data).first()
-    if user is not None:
-        raise ValidationError('Email address already taken.')
+from .utils.form_validators import (validate_email,
+                                    validate_username,
+                                    validate_password,
+                                    validate_new_password)
 
 
 class LoginForm(FlaskForm):
@@ -55,11 +50,17 @@ class EditProfileForm(FlaskForm):
 
 
 class EditAccountForm(FlaskForm):
-    username = StringField('Username', validators=[validate_username])
-    new_password = PasswordField()
-    new_password_repeat = PasswordField()
-    old_password = PasswordField()
-    email = StringField()
-    new_email = StringField()
+    old_password = PasswordField(
+        'Current Password', validators=[DataRequired(), validate_password]
+    )
+    new_username = StringField('Username', validators=[validate_username])
+    new_password = PasswordField(
+        'New Password', validators=[validate_new_password]
+    )
+    new_password_repeat = PasswordField(
+        'Repeat New Password', validators=[EqualTo('new_password')]
+    )
+    new_email = StringField('New Email', validators=[validate_email])
+    submit = SubmitField('Update Account')
 
 # vim: ft=python ts=4 sw=4 sts=4 et

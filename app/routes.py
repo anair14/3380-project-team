@@ -93,10 +93,30 @@ def edit_profile():
                            form=form)
 
 
-@app.route('/account', methods=['GET', 'POST'])
+@app.route('/account')
 @login_required
 def account():
+    return render_template('account.html', title='Account', user=current_user)
+
+
+@app.route('/edit_account', methods=['GET', 'POST'])
+@login_required
+def edit_account():
     form = EditAccountForm()
+
+    # change account info
+    if form.validate_on_submit():
+        if form.new_password.data is not None:
+            current_user.set_password(form.new_password.data)
+        # if form.username.data != '':
+        #     current_user.username = form.username.data
+        # if form.new_email.data != '':
+        #     current_user.email = form.new_email.data
+        db.session.commit()
+
+    elif request.method == 'GET':
+        form.new_username.data = current_user.username
+        form.new_email.data = current_user.email
     return render_template(
         'edit_account.html', title='Edit Account', form=form
     )
