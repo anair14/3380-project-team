@@ -90,7 +90,7 @@ def edit_profile():
         form.height.data = current_user.height
         form.weight.data = current_user.weight
     return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+                           form=form, user=current_user)
 
 
 @app.route('/account', methods=['GET', 'POST'])
@@ -143,5 +143,11 @@ def toggle_profile_complete():
     current_user.profile_completed = not current_user.profile_completed
     db.session.commit()
     return redirect(url_for('index'))
+
+
+@app.route('/user/<username>/followers')
+def followers_list(username: str):
+    followers = current_user.followers
+    return render_template('follower.html', title='Followers', followers=followers)
 
 # vim: ft=python ts=4 sw=4 sts=4

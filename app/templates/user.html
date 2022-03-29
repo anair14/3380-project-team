@@ -12,5 +12,6 @@
   <p>Height: {{ user.height }}</p>
   <p>Weight: {{ user.weight }}</p>
   <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
+  <a href="/user/{{ current_user.username }}/followers">Followers: {{ user.followers.count() }} </a>
   {% endif %}
 {% endblock content %}
