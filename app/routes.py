@@ -161,6 +161,14 @@ def user(username: str):
     return render_template('user.html', user=user)
 
 
+@app.route('/user/<username>/followers')
+def followers_list(username: str):
+    followers = current_user.followers
+    return render_template(
+        'follower.html', title='Followers', followers=followers
+    )
+
+
 @app.route('/meal/<meal_id>')
 @login_required
 @complete_profile_required
@@ -180,44 +188,5 @@ def meals():
 @complete_profile_required
 def exercise(exercise_id: int):
     return render_template('index.html', title=f'Exercise: {exercise_id}')
-
-
-@app.route('/exercises')
-@login_required
-@complete_profile_required
-def exercises():
-    return render_template('index.html', title='Exercises')
-
-
-@app.route('/toggle_profile_complete')
-@login_required
-def toggle_profile_complete():
-    current_user.profile_completed = not current_user.profile_completed
-    db.session.commit()
-    return redirect(url_for('index'))
-
-
-
-@app.route('/reset_password')
-@login_required
-def reset_password():
-    current_user.set_password('test')
-    db.session.commit()
-    return redirect(url_for('index'))
-
-
-@app.route('/reset_password/<username>')
-def reset_password_username(username: str):
-    user = User.query.filter_by(username=username).first()
-    user.set_password('test')
-    db.session.commit()
-    return redirect(url_for('index'))
-  
-  
-@app.route('/user/<username>/followers')
-def followers_list(username: str):
-    followers = current_user.followers
-    return render_template('follower.html', title='Followers', followers=followers)
-
 
 # vim: ft=python ts=4 sw=4 sts=4

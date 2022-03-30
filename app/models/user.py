@@ -7,13 +7,26 @@ from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
 
-followers = db.Table('followers',
-                     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-                     db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
+followers = db.Table(
+    'followers',
+    db.Column(
+        'follower_id',
+        db.Integer,
+        db.ForeignKey('user.id')
+    ),
+    db.Column(
+        'followed_id',
+        db.Integer,
+        db.ForeignKey('user.id')
+    )
+)
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), index=True, unique=True,
+    username = db.Column(db.String(150),
+                         index=True,
+                         unique=True,
                          nullable=False)
     email = db.Column(db.String(150), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
@@ -30,10 +43,16 @@ class User(UserMixin, db.Model):
     meal_plan = MealPlan()
 
     followed = db.relationship(
-        'User', secondary=followers,
+        'User',
+        secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+        backref=db.backref(
+            'followers',
+            lazy='dynamic'
+        ),
+        lazy='dynamic'
+    )
 
     def __repr__(self):
         return f'<User {self.username}>'
