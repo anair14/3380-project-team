@@ -126,6 +126,13 @@ def change_password():
 def change_email():
     form = ChangeEmailForm()
 
+    if form.validate_on_submit():
+        current_user.email = form.new_email.data
+        db.session.commit()
+    elif request.method == 'GET':
+        form.new_email.data = current_user.email
+        form.new_email_repeat.data = current_user.email
+
     return render_template(
         'change_email.html', title='Change Email', form=form
     )
@@ -135,6 +142,12 @@ def change_email():
 @login_required
 def change_username():
     form = ChangeUsernameForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.new_username.data
+        db.session.commit()
+    elif request.method == 'GET':
+        form.new_username.data = current_user.username
 
     return render_template(
         'change_username.html', title='Change Username', form=form

@@ -40,7 +40,7 @@ class RegistrationForm(FlaskForm):
 
     password = PasswordField(
         'Password',
-        validators=[DataRequired(), Length(min=16)]
+        validators=[DataRequired(), Length(min=4)]
     )
 
     password_repeat = PasswordField(
@@ -71,7 +71,7 @@ class ChangePasswordForm(FlaskForm):
     new_password = PasswordField(
         'New Password',
         validators=[
-            Length(min=16),
+            Length(min=4),
             validate_new_password
         ]
     )
