@@ -4,17 +4,20 @@ from wtforms import (StringField,
                      BooleanField,
                      SubmitField,
                      DateField,
-                     FloatField)
+                     FloatField,
+                     EmailField)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 EqualTo,
                                 Length,
-                                NumberRange)
+                                NumberRange,
+                                Optional)
 from .models.user import User
 from .utils.form_validators import (validate_email,
                                     validate_username,
                                     validate_password,
-                                    validate_new_password)
+                                    validate_new_password,
+                                    validate_new_username, validate_new_email)
 
 
 class LoginForm(FlaskForm):
@@ -26,15 +29,25 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username = StringField(
-        'Username', validators=[DataRequired(), validate_username]
+        'Username',
+        validators=[DataRequired(), validate_username]
     )
+
     email = StringField(
-        'Email', validators=[DataRequired(), Email(), validate_email]
+        'Email',
+        validators=[DataRequired(), Email(), validate_email]
     )
-    password = PasswordField('Password', validators=[DataRequired()])
+
+    password = PasswordField(
+        'Password',
+        validators=[DataRequired(), Length(min=16)]
+    )
+
     password_repeat = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')]
+        'Repeat Password',
+        validators=[DataRequired(), EqualTo('password')]
     )
+
     submit = SubmitField('Register')
 
 
@@ -49,18 +62,59 @@ class EditProfileForm(FlaskForm):
     submit = SubmitField('Update Profile')
 
 
-class EditAccountForm(FlaskForm):
-    old_password = PasswordField(
-        'Current Password', validators=[DataRequired(), validate_password]
+class ChangePasswordForm(FlaskForm):
+    password = PasswordField(
+        'Current Password',
+        validators=[DataRequired(), validate_password]
     )
-    new_username = StringField('Username', validators=[validate_username])
+
     new_password = PasswordField(
-        'New Password', validators=[validate_new_password]
+        'New Password',
+        validators=[
+            Length(min=16),
+            validate_new_password
+        ]
     )
-    new_password_repeat = PasswordField(
-        'Repeat New Password', validators=[EqualTo('new_password')]
+
+    confirm_new_password = PasswordField(
+        'Repeat New Password',
+        validators=[EqualTo('new_password')]
     )
-    new_email = StringField('New Email', validators=[validate_email])
-    submit = SubmitField('Update Account')
+
+    submit = SubmitField('Change Password')
+
+
+class ChangeEmailForm(FlaskForm):
+    password = PasswordField(
+        'Current Password',
+        validators=[DataRequired(), validate_password]
+    )
+
+    new_email = EmailField(
+        'New Email',
+        validators=[Email(), Optional(), validate_new_email]
+    )
+
+    new_email_repeat = EmailField(
+        'Repeat New Email',
+        validators=[EqualTo('new_email'), Email()]
+    )
+
+    submit = SubmitField('Change Email')
+
+
+class ChangeUsernameForm(FlaskForm):
+    password = PasswordField(
+        'Current Password',
+        validators=[DataRequired(), validate_password]
+    )
+
+    new_username = StringField(
+        'New Username',
+        validators=[Optional(), validate_new_username]
+    )
+
+    submit = SubmitField('Change Username')
+
 
 # vim: ft=python ts=4 sw=4 sts=4 et
