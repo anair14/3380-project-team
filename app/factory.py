@@ -31,6 +31,8 @@ def create_app(config: str = None) -> Flask:
 
     with app.app_context():
         from . import routes
+        if app.debug:
+            from .utils.debug import routes
 
     return app
 
