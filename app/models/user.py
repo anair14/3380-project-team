@@ -1,4 +1,5 @@
 from datetime import date
+from multiprocessing.dummy import Array
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,10 +25,10 @@ class User(UserMixin, db.Model):
     birthdate = db.Column(db.Date())
     height = db.Column(db.Float())
     weight = db.Column(db.Float())
+    current_exercise_id = db.Column(db.Integer())
+    exercise_weight_id = db.Column(db.PickleType())
+    exercise_weight = db.Column(db.PickleType())
     # display_metric = db.Boolean
-
-    exercise_plan = ExercisePlan()
-    meal_plan = MealPlan()
 
     followed = db.relationship(
         'User', secondary=followers,
@@ -69,5 +70,13 @@ class User(UserMixin, db.Model):
 
     def list_followers(self, user):
         return self.follower.count()
+
+    def set_exercise_weight(self, exercise_id, weight):
+        self.exercise_weight_id.append(exercise_id)
+        self.exercise_weight.append(weight)
+
+    def get_exercise_weight(self,exercise_id):
+        i = self.exercise_weight_id.index(exercise_id)
+        return self.exercise_weight[i]   
 
 # vim: ft=python ts=4 sw=4 sts=4 et
