@@ -1,6 +1,11 @@
 from pathlib import Path
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-
+class Config(object):
+    SQALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')  or \
+        'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQALCHEMY_TRACK_MODIFICATIONS = False
 class Default:
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
