@@ -175,6 +175,13 @@ def meals():
     return render_template('index.html', title='Meals')
 
 
+@app.route('/exercises')
+@login_required
+@complete_profile_required
+def exercises():
+    return render_template('exercises.html', title='Exercises', user=current_user)
+
+
 @app.route('/exercise/<exercise_id>')
 @login_required
 @complete_profile_required
