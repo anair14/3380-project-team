@@ -22,6 +22,7 @@ class UserGen:
                  email: str = None,
                  password: str = None, email_sep: str = '',
                  email_dn: str = 'test.com'):
+        self._name = None
         self.fn = first_name
         self.ln = last_name
         self.un = username
@@ -41,13 +42,13 @@ class UserGen:
         email_domain = f'@{self.email_dn}'
         return email_un + email_domain
 
-    def gen_fn_ln(self):
-        [fn, ln] = names.get_full_name().split(' ')
-        return [fn, ln]
+    def gen_name(self):
+        return names.get_full_name()
 
     def populate(self):
-        self.fn = self.fn or fn
-        self.ln = self.ln or ln
+        self._name = self.gen_name()
+        self.fn = self.fn or self._name.split()[0]
+        self.ln = self.ln or self._name().split()[1]
         self.un = self.un or self.gen_un()
         self.email = self.email or self.gen_email()
         self.password = self.password or self.gen_pw()
