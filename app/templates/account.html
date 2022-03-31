@@ -1,0 +1,18 @@
+{% extends 'extends/__base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+  {% if user.profile_completed %}
+  <h1>{{ user.first_name }} {{ user.last_name }}'s Account</h1>
+  {% else %}
+  <h1>{{ user.username }}'s Account</h1>
+  {% endif %}
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+  <a class="btn btn-primary" href="{{ url_for('change_username') }}"
+     role="button">Change Username</a>
+  <a class="btn btn-primary" href="{{ url_for('change_email') }}"
+     role="button">Change Email</a>
+  <a class="btn btn-primary" href="{{ url_for('change_password') }}"
+     role="button">Change Password</a>
+{% endblock content %}
