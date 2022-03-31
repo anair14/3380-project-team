@@ -17,7 +17,7 @@ from .forms import (RegistrationForm,
                     EditProfileForm,
                     ChangePasswordForm,
                     ChangeUsernameForm,
-                    ChangeEmailForm)
+                    ChangeEmailForm, EmptyForm)
 
 
 @app.route('/')
@@ -183,10 +183,59 @@ def meals():
     return render_template('index.html', title='Meals')
 
 
+@app.route('/exercises')
+@login_required
+@complete_profile_required
+def exercises():
+    return render_template('exercises.html', title='Exercises', user=current_user)
+
+
 @app.route('/exercise/<exercise_id>')
 @login_required
 @complete_profile_required
 def exercise(exercise_id: int):
     return render_template('index.html', title=f'Exercise: {exercise_id}')
+
+
+@app.route('/follow/<username>', methods=['POST'])
+@login_required
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        current_user.follow(user)
+        db.session.commit()
+        flash('You are following {}!'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/unfollow/<username>', methods=['POST'])
+@login_required
+def unfollow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        current_user.unfollow(user)
+        db.session.commit()
+        flash('You are not following {}.'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/user/<username>/followers')
+def followers_list(username: str):
+    followers = current_user.followers
+    return render_template(
+        'follower.html', title='Followers', followers=followers
+    )
 
 # vim: ft=python ts=4 sw=4 sts=4

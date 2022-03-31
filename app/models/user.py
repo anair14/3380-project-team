@@ -55,6 +55,18 @@ class User(UserMixin, db.Model):
         lazy='dynamic'
     )
 
+    followed = db.relationship(
+        'User',
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref(
+            'followers',
+            lazy='dynamic'
+        ),
+        lazy='dynamic'
+    )
+
     def __repr__(self):
         return f'<User {self.username}>'
 

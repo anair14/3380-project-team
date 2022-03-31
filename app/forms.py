@@ -116,5 +116,7 @@ class ChangeUsernameForm(FlaskForm):
 
     submit = SubmitField('Change Username')
 
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
 
 # vim: ft=python ts=4 sw=4 sts=4 et

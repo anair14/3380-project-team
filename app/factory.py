@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
+from flask_mail import Mail
+
 from .models import db, migrate
 from .models.user import User
 from .navigation import nav
@@ -20,6 +22,7 @@ def create_app(config: str = None) -> Flask:
 
     bootstrap = Bootstrap()
     login = LoginManager()
+    mail = Mail()
     login.user_loader(User.loader)
     login.login_view = "login"
 
@@ -28,6 +31,7 @@ def create_app(config: str = None) -> Flask:
     nav.init_app(app)
     bootstrap.init_app(app)
     login.init_app(app)
+    mail.init_app(app)
 
     with app.app_context():
         from . import routes

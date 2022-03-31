@@ -1,0 +1,9 @@
+{
+    "example":{
+        "name":"example",
+        "calories":1,
+        "difficulty":3,
+        "type":"cut",
+        "region":"legs"
+    }
+}
