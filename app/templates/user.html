@@ -7,10 +7,25 @@
   {% else %}
   <h1>{{ user.username }}</h1>
   {% endif %}
+  {% if user != current_user %}
+    <h1>{{ user.followers.count() }} Followers, {{ user.followed.count() }} Following</h1>
+    {% if not current_user.is_following(user) %}
+    <form action="{{ url_for('follow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value='Follow') }}
+    </form>
+    {% else %}
+    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value='Unfollow') }}
+    </form>
+    {% endif %}
+  {% endif %}
   {% if user == current_user %}
   <p>Age: {{ user.age }}</p>
   <p>Height: {{ user.height }}</p>
   <p>Weight: {{ user.weight }}</p>
   <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
+  <a href="/user/{{ current_user.username }}/followers">Followers: {{ user.followers.count() }} </a>
   {% endif %}
 {% endblock content %}

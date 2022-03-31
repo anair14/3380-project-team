@@ -7,10 +7,26 @@ from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
 
+followers = db.Table(
+    'followers',
+    db.Column(
+        'follower_id',
+        db.Integer,
+        db.ForeignKey('user.id')
+    ),
+    db.Column(
+        'followed_id',
+        db.Integer,
+        db.ForeignKey('user.id')
+    )
+)
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), index=True, unique=True,
+    username = db.Column(db.String(150),
+                         index=True,
+                         unique=True,
                          nullable=False)
     email = db.Column(db.String(150), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
@@ -25,6 +41,18 @@ class User(UserMixin, db.Model):
 
     exercise_plan = ExercisePlan()
     meal_plan = MealPlan()
+
+    followed = db.relationship(
+        'User',
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref(
+            'followers',
+            lazy='dynamic'
+        ),
+        lazy='dynamic'
+    )
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -45,5 +73,20 @@ class User(UserMixin, db.Model):
     @staticmethod
     def loader(user_id: int):
         return User.query.get(int(user_id))
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
+
+    def list_followers(self, user):
+        return self.follower.count()
 
 # vim: ft=python ts=4 sw=4 sts=4 et

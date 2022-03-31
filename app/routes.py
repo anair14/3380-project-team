@@ -12,7 +12,12 @@ from flask_login import (current_user,
 from .models import db
 from .models.user import User
 from .utils import complete_profile_required
-from .forms import RegistrationForm, LoginForm, EditProfileForm, EditAccountForm
+from .forms import (RegistrationForm,
+                    LoginForm,
+                    EditProfileForm,
+                    ChangePasswordForm,
+                    ChangeUsernameForm,
+                    ChangeEmailForm, EmptyForm)
 
 
 @app.route('/')
@@ -53,8 +58,11 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data,
-                    profile_completed=False)
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            profile_completed=False
+        )
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -90,15 +98,59 @@ def edit_profile():
         form.height.data = current_user.height
         form.weight.data = current_user.weight
     return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+                           form=form, user=current_user)
 
 
-@app.route('/account', methods=['GET', 'POST'])
+@app.route('/account')
 @login_required
 def account():
-    form = EditAccountForm()
+    return render_template('account.html', title='Account', user=current_user)
+
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+
     return render_template(
-        'edit_account.html', title='Edit Account', form=form
+        'change_password.html', title='Change Password', form=form
+    )
+
+
+@app.route('/change_email', methods=['GET', 'POST'])
+@login_required
+def change_email():
+    form = ChangeEmailForm()
+
+    if form.validate_on_submit():
+        current_user.email = form.new_email.data
+        db.session.commit()
+    elif request.method == 'GET':
+        form.new_email.data = current_user.email
+        form.new_email_repeat.data = current_user.email
+
+    return render_template(
+        'change_email.html', title='Change Email', form=form
+    )
+
+
+@app.route('/change_username', methods=['GET', 'POST'])
+@login_required
+def change_username():
+    form = ChangeUsernameForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.new_username.data
+        db.session.commit()
+    elif request.method == 'GET':
+        form.new_username.data = current_user.username
+
+    return render_template(
+        'change_username.html', title='Change Username', form=form
     )
 
 
@@ -130,18 +182,45 @@ def exercise(exercise_id: int):
     return render_template('index.html', title=f'Exercise: {exercise_id}')
 
 
-@app.route('/exercises')
+@app.route('/follow/<username>', methods=['POST'])
 @login_required
-@complete_profile_required
-def exercises():
-    return render_template('index.html', title='Exercises')
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        current_user.follow(user)
+        db.session.commit()
+        flash('You are following {}!'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
 
 
-@app.route('/toggle_profile_complete')
+@app.route('/unfollow/<username>', methods=['POST'])
 @login_required
-def toggle_profile_complete():
-    current_user.profile_completed = not current_user.profile_completed
-    db.session.commit()
-    return redirect(url_for('index'))
+def unfollow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        current_user.unfollow(user)
+        db.session.commit()
+        flash('You are not following {}.'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/user/<username>/followers')
+def followers_list(username: str):
+    followers = current_user.followers
+    return render_template(
+        'follower.html', title='Followers', followers=followers
+    )
 
 # vim: ft=python ts=4 sw=4 sts=4
