@@ -28,6 +28,6 @@ db-upgrade:
 db-re: db-clean db-init db-migrate db-upgrade
 
 cloc:
-	pygount --format=summary app/
+	pygount --format=summary app/ scripts/ data/json/ manage.py config.py
 
 # vim: ft=make ts=4 sw=4 sts=4 noet
