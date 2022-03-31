@@ -1,4 +1,6 @@
 pip-chill
-python-dotenv==0.19.2
+python-dotenv==0.20.0
 flask-migrate
 pygount
+names==0.3.0
+pprintpp
