@@ -10,6 +10,9 @@ setup:
 # 	. ./venv/bin/activate;
 # endif
 
+mail-server-run:
+	python -m smtpd -n -c DebuggingServer localhost:8025
+
 db-clean:
 	rm -rf migrations data/app.db
 
