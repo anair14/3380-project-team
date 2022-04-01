@@ -1,0 +1,7 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+    {% for following in followed %}
+    <a href="/user/{{ following.username }}"><li>{{ following }}</li></a>
+    {% endfor %}
+{% endblock content %}

@@ -158,7 +158,8 @@ def change_username():
 @login_required
 def user(username: str):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user)
+    form = EmptyForm()
+    return render_template('user.html', user=user, form=form)
 
 
 @app.route('/user/<username>/followers')
@@ -233,9 +234,18 @@ def unfollow(username):
 
 @app.route('/user/<username>/followers')
 def followers_list(username: str):
-    followers = current_user.followers
+    user = User.query.filter_by(username=username).first_or_404()
+    followers = user.followers
     return render_template(
-        'follower.html', title='Followers', followers=followers
+        'followers.html', title='Followers', followers=followers
+    )
+
+@app.route('/user/<username>/followed')
+def followings_list(username: str):
+    user = User.query.filter_by(username=username).first_or_404()
+    followed = user.followed
+    return render_template(
+        'followed.html', title='Followed', followed=followed
     )
 
 # vim: ft=python ts=4 sw=4 sts=4

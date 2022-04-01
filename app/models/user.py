@@ -3,6 +3,7 @@ from multiprocessing.dummy import Array
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from werkzeug.security import generate_password_hash, check_password_hash
+from hashlib import md5
 
 from . import db
 from .exercise import ExercisePlan
@@ -99,8 +100,10 @@ class User(UserMixin, db.Model):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
-    def list_followers(self, user):
-        return self.follower.count()
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
 
     def set_exercise_weight(self, exercise_id, weight):
         self.exercise_weight_id.append(exercise_id)
