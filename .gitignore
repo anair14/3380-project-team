@@ -555,4 +555,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/python,vim,visualstudiocode,jetbrains+all,jetbrains+iml,linux,windows,macos,node
+/migrations/versions/02e043226bbb_.py
+/migrations/alembic.ini
+/migrations/env.py
+/migrations/README
+/migrations/script.py.mako
 data/app.db
