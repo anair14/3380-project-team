@@ -1,5 +1,5 @@
 import os, sys
-p = os.path.abspath('.')
+p = os.path.abspath('../Scripts')
 sys.path.insert(1, p)
 
 from app import create_app

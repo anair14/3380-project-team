@@ -57,18 +57,6 @@ class User(UserMixin, db.Model):
         lazy='dynamic'
     )
 
-    followed = db.relationship(
-        'User',
-        secondary=followers,
-        primaryjoin=(followers.c.follower_id == id),
-        secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref(
-            'followers',
-            lazy='dynamic'
-        ),
-        lazy='dynamic'
-    )
-
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -114,8 +102,8 @@ class User(UserMixin, db.Model):
         self.exercise_weight_id.append(exercise_id)
         self.exercise_weight.append(weight)
 
-    def get_exercise_weight(self,exercise_id):
+    def get_exercise_weight(self, exercise_id):
         i = self.exercise_weight_id.index(exercise_id)
-        return self.exercise_weight[i]   
+        return self.exercise_weight[i]
 
 # vim: ft=python ts=4 sw=4 sts=4 et
