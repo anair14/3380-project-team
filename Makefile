@@ -27,6 +27,9 @@ db-upgrade:
 
 db-re: db-clean db-init db-migrate db-upgrade
 
+scripts-create_users:
+	python scripts/create_users.py $(num_users)
+
 cloc:
 	pygount --format=summary app/ scripts/ data/json/ manage.py config.py
 

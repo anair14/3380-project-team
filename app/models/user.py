@@ -58,7 +58,7 @@ class User(UserMixin, db.Model):
     )
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<User {self.username}, id: {self.id}>'
 
     def set_password(self, new_password: str) -> None:
         if app.debug:
