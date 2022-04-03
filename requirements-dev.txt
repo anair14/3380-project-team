@@ -3,4 +3,4 @@ python-dotenv==0.20.0
 flask-migrate
 pygount
 names==0.3.0
-pprintpp
+pprintpp==0.4.0
