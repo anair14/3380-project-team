@@ -1,4 +1,5 @@
 from datetime import date
+from flask import current_app as app
 from multiprocessing.dummy import Array
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -72,7 +73,11 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
     def set_password(self, new_password: str) -> None:
-        self.password_hash = generate_password_hash(new_password)
+        if app.debug:
+            self.password_hash = generate_password_hash(new_password,
+                                                        method='plain')
+        else:
+            self.password_hash = generate_password_hash(new_password)
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
