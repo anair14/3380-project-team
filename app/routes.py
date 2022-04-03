@@ -162,14 +162,6 @@ def user(username: str):
     return render_template('user.html', user=user, form=form)
 
 
-@app.route('/user/<username>/followers')
-def followers_list(username: str):
-    followers = current_user.followers
-    return render_template(
-        'follower.html', title='Followers', followers=followers
-    )
-
-
 @app.route('/meal/<meal_id>')
 @login_required
 @complete_profile_required
@@ -188,7 +180,8 @@ def meals():
 @login_required
 @complete_profile_required
 def exercises():
-    return render_template('exercises.html', title='Exercises', user=current_user)
+    return render_template('exercises.html', title='Exercises',
+                           user=current_user)
 
 
 @app.route('/exercise/<exercise_id>')
@@ -239,6 +232,7 @@ def followers_list(username: str):
     return render_template(
         'followers.html', title='Followers', followers=followers
     )
+
 
 @app.route('/user/<username>/followed')
 def followings_list(username: str):
