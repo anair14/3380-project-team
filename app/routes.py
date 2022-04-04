@@ -83,7 +83,7 @@ def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.first_name = form.first_name.data
-        current_user.last_name = form.first_name.data
+        current_user.last_name = form.last_name.data
         current_user.birthdate = form.birthdate.data
         current_user.height = form.height.data
         current_user.weight = form.weight.data
