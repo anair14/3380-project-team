@@ -110,4 +110,16 @@ class User(UserMixin, db.Model):
         else:
             return load_exercise.getweight(exercise_id, self.height, self.weight)
 
+    def get_exercise_weights(self):
+        weights = []
+        for e in load_exercise.getexercises():
+            weights.append(self.get_exercise_weight(e.getid()))
+
+        return weights
+
+
+
+
+
+
 # vim: ft=python ts=4 sw=4 sts=4 et

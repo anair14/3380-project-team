@@ -17,7 +17,9 @@ from .forms import (RegistrationForm,
                     EditProfileForm,
                     ChangePasswordForm,
                     ChangeUsernameForm,
-                    ChangeEmailForm, EmptyForm)
+                    ChangeEmailForm,
+                    EmptyForm)
+from .json_info import load_exercise
 
 
 @app.route('/')
@@ -61,7 +63,9 @@ def register():
         user = User(
             username=form.username.data,
             email=form.email.data,
-            profile_completed=False
+            profile_completed=False,
+            exercise_weight_id = [],
+            exercise_weight = []
         )
         user.set_password(form.password.data)
         db.session.add(user)
@@ -181,7 +185,7 @@ def meals():
 @complete_profile_required
 def exercises():
     return render_template('exercises.html', title='Exercises',
-                           user=current_user)
+                           user=current_user, exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
 
 
 @app.route('/exercise/<exercise_id>')

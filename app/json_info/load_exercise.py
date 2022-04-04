@@ -16,6 +16,11 @@ class Exercise():
         self.part = part
         self.sets = sets
         self.reps = reps
+        if(region == 'arms'):
+            self.weight_light = 20
+            self.weight_medium = 30
+            self.weight_heavy = 40
+
 
 
     def getweight(self, bmi):
@@ -25,11 +30,17 @@ class Exercise():
             return self.weight_medium
         elif bmi < 3:
             return self.weight_heavy
+
+    def getid(self):
+        return self.id
+
     def __str__(self):
         return self.name
 
 def getexercises():
     return exercises
+        
+
     
 def getexercise(id):
     for exercise in exercises:
