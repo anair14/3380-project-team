@@ -1,0 +1,33 @@
+{
+    "curls":{
+        "name":"Bicep Curls",
+        "calories":"80-120 Calories",
+        "difficulty":3,
+        "type": "bulk",
+        "region":"arms",
+        "specific body part":"biceps",
+        "sets":3,
+        "reps":10
+    },
+    "kettlebell":{
+        "name":"Kettlebell Swing",
+        "calories":"90-110 Calories",
+        "difficulty":2,
+        "type": "cut",
+        "region":"arms",
+        "specific body part":"shoulders, forearms, lat muscles",
+        "sets":3,
+        "reps":10
+    },
+    "pushups":{
+        "name":"Push-ups",
+        "calories":"80-120 Calories",
+        "difficulty":2,
+        "type":"cut",
+        "region":"arms",
+        "specific body part":"triceps, shoulders",
+        "sets":3,
+        "reps":10
+    }
+
+}
