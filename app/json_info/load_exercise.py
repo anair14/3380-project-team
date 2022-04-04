@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 exercises = []
-p = Path.cwd() / 'app\\json_info\\exercise_file.json'
+p = Path(Path.cwd(), 'app', 'json_info', 'exercise_file.json')
 print(p)
 f = open(p, "r")
 #data = json.load(f)
