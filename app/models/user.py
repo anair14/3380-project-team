@@ -9,6 +9,7 @@ from hashlib import md5
 from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
+from ..json_info import load_exercise
 
 followers = db.Table(
     'followers',
@@ -103,7 +104,10 @@ class User(UserMixin, db.Model):
         self.exercise_weight.append(weight)
 
     def get_exercise_weight(self, exercise_id):
-        i = self.exercise_weight_id.index(exercise_id)
-        return self.exercise_weight[i]
+        if(exercise_id in self.exercise_weight_id):
+            i = self.exercise_weight_id.index(exercise_id)
+            return self.exercise_weight[i]
+        else:
+            return load_exercise.getweight(exercise_id, self.height, self.weight)
 
 # vim: ft=python ts=4 sw=4 sts=4 et
