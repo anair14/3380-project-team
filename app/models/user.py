@@ -112,8 +112,8 @@ class User(UserMixin, db.Model):
 
     def get_exercise_weights(self):
         weights = []
-        for e in load_exercise.getexercises():
-            weights.append(self.get_exercise_weight(e.getid()))
+        for e in load_exercise.getwexercises():
+            weights.append([id, self.get_exercise_weight(e.getid())])
 
         return weights
 

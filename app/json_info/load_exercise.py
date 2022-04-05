@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 class Exercise():
-    def __init__(self, id, name, calories, diff, type, region, part, sets, reps):
+    def __init__(self, id, name, calories, diff, type, region, part, sets, reps, weighted):
         self.id = id
         self.name = name
         self.calories = calories
@@ -16,6 +16,7 @@ class Exercise():
         self.part = part
         self.sets = sets
         self.reps = reps
+        self.weighted = True
         if(region == 'arms'):
             self.weight_light = 20
             self.weight_medium = 30
@@ -24,12 +25,15 @@ class Exercise():
 
 
     def getweight(self, bmi):
-        if bmi < 1:
-            return self.weight_light
-        elif bmi < 2:
-            return self.weight_medium
-        elif bmi < 3:
-            return self.weight_heavy
+        if self.weighted:
+            if bmi < 1:
+                return self.weight_light
+            elif bmi < 2:
+                return self.weight_medium
+            elif bmi < 3:
+                return self.weight_heavy
+        else:
+            return None
 
     def getid(self):
         return self.id
@@ -38,12 +42,18 @@ class Exercise():
         return self.name
 
 def getexercises():
-    return exercises
+    return exercises_weighted + exercisesn_weighted
+
+def getwexercises():
+    return exercises_weighted
         
 
     
 def getexercise(id):
-    for exercise in exercises:
+    for exercise in exercises_weighted:
+        if exercise.id == id:
+            return exercise
+    for exercise in exercisesn_weighted:
         if exercise.id == id:
             return exercise
     return None
@@ -54,7 +64,8 @@ def getweight(id, height, weight):
     return e.getweight(bmi)
     
 
-exercises = []
+exercises_weighted = []
+exercisesn_weighted = []
 p = Path(Path.cwd(), 'app', 'json_info', 'exercise_file.json')
 print(p)
 f = open(p, "r")
@@ -64,7 +75,14 @@ for e in data:
 #    exercises.append(i, e['name'], e['calories'], e['difficulty'], e['type'], e['region'], e['specific body part'], e['sets'], e['reps'])
     # exercises.append(i, e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[7])
     ex = data[e]
-    exercises.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], data[e] ['reps']))
+    if(data[e]['weights'] == "no"):
+        exercisesn_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
+                    data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
+                    data[e] ['reps'], False))
+    else:
+        exercises_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
+                data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
+                data[e] ['reps']), True)  
 
 
     
