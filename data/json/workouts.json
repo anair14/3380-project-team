@@ -122,7 +122,7 @@
     },
     "touchdown-jacks":{
         "name":"Touchdown Jacks",
-        "calories":"100 - 120 Calories",
+        "calories":"100-120 Calories",
         "difficulty": 3,
         "type":"cut",
         "region":"legs",
@@ -131,5 +131,65 @@
         "reps": 12,
         "weights": "no",
         "id":11
+    },
+    "pull-apart":{
+        "name":"Pull-apart",
+        "calories":"100-120 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"upper back, shoulder",
+        "sets": 3,
+        "reps": 8,
+        "weights": "no",
+        "id":12
+    },
+    "row":{
+        "name":"Suspended Row",
+        "calories":"95-115 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"core, shoulders, biceps and back",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 13
+    },
+    "pullup":{
+        "name":"Pullup",
+        "calories":"75-95 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"shoulders, forearms, upper back",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 14
+    },
+    "forearm":{
+        "name":"Forearm Plank",
+        "calories":"100-120 Calories",
+        "difficulty":2,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"core, upper body, shoulders, arms and legs",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 15
+    },
+    "pressup":{
+        "name":"Diamond Press-up",
+        "calories":"90-110 Calories",
+        "difficulty":2,
+        "type":"bulk",
+        "region":"arms",
+        "specific body part":"triceps and chest",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 16
     }
 }
