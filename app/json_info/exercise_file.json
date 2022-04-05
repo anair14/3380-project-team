@@ -7,6 +7,7 @@
         "region":"arms",
         "specific body part":"biceps",
         "sets":3,
+        "weights" : "yes",
         "reps":10
     },
     "kettlebell":{
@@ -17,6 +18,7 @@
         "region":"arms",
         "specific body part":"shoulders, forearms, lat muscles",
         "sets":3,
+        "weights" : "yes",
         "reps":10
     },
     "pushups":{
@@ -27,6 +29,7 @@
         "region":"arms",
         "specific body part":"triceps, shoulders",
         "sets":3,
+        "weights": "no",
         "reps":10
     }
 

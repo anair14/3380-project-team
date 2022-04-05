@@ -82,7 +82,7 @@ for e in data:
     else:
         exercises_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
                 data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
-                data[e] ['reps']), True)  
+                data[e] ['reps'], True))
 
 
     

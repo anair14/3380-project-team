@@ -184,6 +184,7 @@ def meals():
 @login_required
 @complete_profile_required
 def exercises():
+    #current_user.set_exercise_weight(1, 140)
     return render_template('exercises.html', title='Exercises',
                            user=current_user, exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
 
