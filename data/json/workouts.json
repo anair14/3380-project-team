@@ -8,7 +8,8 @@
         "specific body part":"biceps",
         "sets":3,
         "reps":10,
-        "weights": "yes"
+        "weights": "yes",
+        "id":1
     },
     "kettlebell":{
         "name":"Kettlebell Swing",
@@ -19,7 +20,8 @@
         "specific body part":"shoulders, forearms, lat muscles",
         "sets":3,
         "reps":10,
-        "weights": "yes"
+        "weights": "yes",
+        "id":2
     },
     "pushups":{
         "name":"Push-ups",
@@ -30,7 +32,8 @@
         "specific body part":"triceps, shoulders",
         "sets":3,
         "reps":10,
-        "weights": "no"
+        "weights": "no",
+        "id":3
     },
     "superman":{
         "name":"Superman",
@@ -41,7 +44,8 @@
         "specific body part":"abs, lower back, glutes, hamstrings",
         "sets":3,
         "reps":10,
-        "weights": "no"
+        "weights": "no",
+        "id":4
     },
     "plank tap":{
         "name":"Plank Tap",
@@ -52,7 +56,8 @@
         "specific body part":"triceps, deltoids, lats, glutes, and core",
         "sets":3,
         "reps":10,
-        "weights": "no"
+        "weights": "no",
+        "id":5
     },
     "dips":{
         "name":"Tricep Dips",
@@ -63,7 +68,8 @@
         "specific body part":"triceps",
         "sets":3,
         "reps":10,
-        "weights": "no"
+        "weights": "no",
+        "id":6
     },
     "squats":{
         "name":"Goblet Squats",
@@ -74,7 +80,8 @@
         "specific body part":"quads and glutes",
         "sets": 3,
         "reps": 10,
-        "weights": "yes"
+        "weights": "yes",
+        "id":7
     },
     "lunges":{
         "name":"Pendulum Lunges",
@@ -85,7 +92,8 @@
         "specific body part":"glutes, hamstrings, and calves",
         "sets": 3,
         "reps": 10,
-        "weights": "optional"
+        "weights": "optional",
+        "id":8
 
     },
     "deadlifts":{
@@ -97,7 +105,8 @@
         "specific body part":"glutes, hamstrings, core, upper back",
         "sets": 3,
         "reps": 12,
-        "weights": "yes"
+        "weights": "yes",
+        "id":9
     },
     "step-ups":{
         "name":"Step-ups",
@@ -108,7 +117,8 @@
         "specific body part":"glutes, hamstrings, core and calves",
         "sets": 3,
         "reps": 10,
-        "weights": "no"
+        "weights": "no",
+        "id":10
     },
     "touchdown-jacks":{
         "name":"Touchdown Jacks",
@@ -119,6 +129,7 @@
         "specific body part":"glutes, core and cores",
         "sets": 3,
         "reps": 12,
-        "weights": "no"
+        "weights": "no",
+        "id":11
     }
 }
