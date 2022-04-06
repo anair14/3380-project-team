@@ -110,6 +110,10 @@ class User(UserMixin, db.Model):
 
     def get_exercise_weight(self, exercise_id):
         print(self)
+        if(self.exercise_weight_id is None):
+            self.exercise_weight_id = []
+            self.exercise_weight = []
+            db.session.commit()
         if(exercise_id in self.exercise_weight_id):
             i = self.exercise_weight_id.index(exercise_id)
             return self.exercise_weight[i]
