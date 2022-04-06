@@ -38,7 +38,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password.')
+            flash('Invalid username or password.', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
@@ -93,7 +93,7 @@ def edit_profile():
         current_user.weight = form.weight.data
         current_user.profile_completed = True
         db.session.commit()
-        flash('Changes have been saved.')
+        flash('Changes have been saved.', 'success')
         return redirect(url_for('profile'))
     elif request.method == 'GET':
         form.first_name.data = current_user.first_name
@@ -101,7 +101,7 @@ def edit_profile():
         form.birthdate.data = current_user.birthdate
         form.height.data = current_user.height
         form.weight.data = current_user.weight
-    return render_template('edit_profile.html', title='Edit Profile',
+    return render_template('forms/edit_profile.html', title='Edit Profile',
                            form=form, user=current_user)
 
 
@@ -121,7 +121,7 @@ def change_password():
         db.session.commit()
 
     return render_template(
-        'change_password.html', title='Change Password', form=form
+        'forms/change_password.html', title='Change Password', form=form
     )
 
 
@@ -138,7 +138,7 @@ def change_email():
         form.new_email_repeat.data = current_user.email
 
     return render_template(
-        'change_email.html', title='Change Email', form=form
+        'forms/change_email.html', title='Change Email', form=form
     )
 
 
@@ -154,7 +154,7 @@ def change_username():
         form.new_username.data = current_user.username
 
     return render_template(
-        'change_username.html', title='Change Username', form=form
+        'forms/change_username.html', title='Change Username', form=form
     )
 
 
@@ -203,11 +203,11 @@ def follow(username):
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash('User {} not found.'.format(username))
+            flash('User {} not found.'.format(username), 'danger')
             return redirect(url_for('index'))
         current_user.follow(user)
         db.session.commit()
-        flash('You are following {}!'.format(username))
+        flash('You are following {}!'.format(username), 'success')
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
@@ -220,11 +220,11 @@ def unfollow(username):
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash('User {} not found.'.format(username))
+            flash('User {} not found.'.format(username), 'danger')
             return redirect(url_for('index'))
         current_user.unfollow(user)
         db.session.commit()
-        flash('You are not following {}.'.format(username))
+        flash('You are not following {}.'.format(username), 'success')
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
