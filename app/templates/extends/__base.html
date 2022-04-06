@@ -1,39 +1,38 @@
-{% extends 'bootstrap/base.html' %}
-{% block doc %}
+<!doctype html>
+<html lang="en">
 {% block html %}
+  <head>
   {% block head %}
     {% block metas %}
-      <meta charset="UTF-8">
-      <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>
+      {% block title %}{{ title }}{% endblock title %}
+      </title>
     {% endblock metas %}
-
-    {#
-    {% block title %}
-      {{ super() }}
-    {% endblock title %}
-    #}
-
     {% block styles %}
-      {{ super() }}
+      {{ bootstrap.load_css() }}
     {% endblock styles %}
   {% endblock head %}
+  </head>
+  <body>
   {% block body %}
     <div class="main">
       {% block navigation %}{% include 'include/_navigation.html' %}{% endblock %}
       <div class="container">
         {% block header %}{% include 'include/_header.html' %}{% endblock header %}
+        {% block flash_message %}{% include 'include/_flash_message.html' %}{% endblock flash_message %}
         {% block content %}{% endblock content %}
         {% block footer %}{% include 'include/_footer.html' %}{% endblock footer %}
       </div>
     </div>
     {% block scripts %}
       <!-- put your scripts before call to super -->
-      {{ super() }}
+      {{ bootstrap.load_js() }}
     {% endblock scripts %}
   {% endblock body %}
+  </body>
 {% endblock html %}
-{% endblock doc %}
+</html>
 
 {# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}

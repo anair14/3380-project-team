@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
 from flask_mail import Mail
 
@@ -20,7 +20,7 @@ def create_app(config: str = None) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config)
 
-    bootstrap = Bootstrap()
+    bootstrap = Bootstrap5()
     login = LoginManager()
     mail = Mail()
     login.user_loader(User.loader)

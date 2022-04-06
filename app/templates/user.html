@@ -1,5 +1,5 @@
 {% extends 'extends/__base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
   {% if user.profile_completed %}
