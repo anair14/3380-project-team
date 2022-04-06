@@ -145,9 +145,7 @@ class User(UserMixin, db.Model):
     def get_mealplan(self):
         return load_mealplans.getmealplan(self.current_mealplan_id)
 
-
-
-
-
+    def url_for(self):
+        return f'/user/{self.username}'
 
 # vim: ft=python ts=4 sw=4 sts=4 et

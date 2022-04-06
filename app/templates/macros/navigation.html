@@ -1,0 +1,3 @@
+{%- macro is_active(page) -%}
+  {%- if request.path.lstrip('/') in page -%} active {%- endif -%}
+{%- endmacro -%}
