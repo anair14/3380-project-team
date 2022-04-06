@@ -5,14 +5,14 @@ from wtforms import (StringField,
                      SubmitField,
                      DateField,
                      FloatField,
-                     EmailField)
+                     EmailField,
+                     FieldList)
 from wtforms.validators import (DataRequired,
                                 Email,
                                 EqualTo,
                                 Length,
                                 NumberRange,
-                                Optional,
-                                ValidationError)
+                                Optional)
 from .models.user import User
 from .utils.form_validators import (validate_email,
                                     validate_username,
@@ -26,17 +26,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
-
-    def validate_username(form, field):
-        user = User.query.filter_by(username=field.data).first()
-        if user is None:
-            raise ValidationError("incorrect username")
-
-    # validate_password does not work likely because of password hashing
-    #def validate_password(form, field):
-    #    user = User.query.filter_by(password_hash=field.data).first()
-    #    if user is None:
-    #        raise ValidationError("incorrect password")
 
 
 class RegistrationForm(FlaskForm):

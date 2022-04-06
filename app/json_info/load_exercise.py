@@ -1,39 +1,88 @@
+from re import I
 from flask import Flask
 from flask_login import current_user
 import json
 from pathlib import Path
 
 
-exercises = []
-p = Path(Path.cwd(), 'app', 'json_info', 'exercise_file.json')
-print(p)
-f = open(p, "r")
-#data = json.load(f)
-
-def Exercise():
-    def __init__(self, id, name):
+class Exercise():
+    def __init__(self, id, name, calories, diff, type, region, part, sets, reps, weighted):
         self.id = id
         self.name = name
+        self.calories = calories
+        self.diff = diff
+        self.type = type
+        self.region = region
+        self.part = part
+        self.sets = sets
+        self.reps = reps
+        self.weighted = True
+        if(region == 'arms'):
+            self.weight_light = 20
+            self.weight_medium = 30
+            self.weight_heavy = 40
+
+
 
     def getweight(self, bmi):
-        if bmi < 1:
-            return self.weight_light
-        elif bmi < 2:
-            return self.weight_medium
-        elif bmi < 3:
-            return self.weight_heavy
+        if self.weighted:
+            if bmi < 1:
+                return self.weight_light
+            elif bmi < 2:
+                return self.weight_medium
+            elif bmi < 3:
+                return self.weight_heavy
+        else:
+            return None
+
+    def getid(self):
+        return self.id
+
     def __str__(self):
         return self.name
 
-def getexercise(self, id):
-    for exercise in exercises:
+def getexercises():
+    return exercises_weighted + exercisesn_weighted
+
+def getwexercises():
+    return exercises_weighted
+        
+
+    
+def getexercise(id):
+    for exercise in exercises_weighted:
+        if exercise.id == id:
+            return exercise
+    for exercise in exercisesn_weighted:
         if exercise.id == id:
             return exercise
     return None
 
-def getweight(self, id, height, weight):
+def getweight(id, height, weight):
     bmi = weight/height
     e = getexercise(id)
     return e.getweight(bmi)
     
+
+exercises_weighted = []
+exercisesn_weighted = []
+p = Path(Path.cwd(), 'app', 'json_info', 'exercise_file.json')
+print(p)
+f = open(p, "r")
+data = json.load(f)
+i = 0
+for e in data:
+#    exercises.append(i, e['name'], e['calories'], e['difficulty'], e['type'], e['region'], e['specific body part'], e['sets'], e['reps'])
+    # exercises.append(i, e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[7])
+    ex = data[e]
+    if(data[e]['weights'] == "no"):
+        exercisesn_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
+                    data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
+                    data[e] ['reps'], False))
+    else:
+        exercises_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
+                data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
+                data[e] ['reps'], True))
+
+
     

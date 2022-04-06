@@ -59,7 +59,7 @@ class User(UserMixin, db.Model):
     )
 
     def __repr__(self):
-        return f'<User {self.username}, id: {self.id}>'
+        return f'<User {self.username}, id: {self.id}, current_exercise_id {self.current_exercise_id}, exercise_weight_id {self.exercise_weight_id}>'
 
     def set_password(self, new_password: str) -> None:
         if app.debug:
@@ -100,14 +100,32 @@ class User(UserMixin, db.Model):
             digest, size)
 
     def set_exercise_weight(self, exercise_id, weight):
-        self.exercise_weight_id.append(exercise_id)
-        self.exercise_weight.append(weight)
+        if self.exercise_weight_id is None:
+            self.exercise_weight_id = [exercise_id]
+            self.exercise_weight = [weight]
+        else:
+            self.exercise_weight_id = self.exercise_weight_id.append(exercise_id)
+            self.exercise_weight.append(weight)
+        db.session.commit()
 
     def get_exercise_weight(self, exercise_id):
+        print(self)
         if(exercise_id in self.exercise_weight_id):
             i = self.exercise_weight_id.index(exercise_id)
             return self.exercise_weight[i]
         else:
             return load_exercise.getweight(exercise_id, self.height, self.weight)
+
+    def get_exercise_weights(self):
+        weights = []
+        for e in load_exercise.getwexercises():
+            weights.append([id, self.get_exercise_weight(e.getid())])
+
+        return weights
+
+
+
+
+
 
 # vim: ft=python ts=4 sw=4 sts=4 et
