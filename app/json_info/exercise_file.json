@@ -7,8 +7,9 @@
         "region":"arms",
         "specific body part":"biceps",
         "sets":3,
-        "weights" : "yes",
-        "reps":10
+        "reps":10,
+        "weights": "yes",
+        "id":1
     },
     "kettlebell":{
         "name":"Kettlebell Swing",
@@ -18,8 +19,9 @@
         "region":"arms",
         "specific body part":"shoulders, forearms, lat muscles",
         "sets":3,
-        "weights" : "yes",
-        "reps":10
+        "reps":10,
+        "weights": "yes",
+        "id":2
     },
     "pushups":{
         "name":"Push-ups",
@@ -29,8 +31,177 @@
         "region":"arms",
         "specific body part":"triceps, shoulders",
         "sets":3,
+        "reps":10,
         "weights": "no",
-        "reps":10
-    }
+        "id":3
+    },
+    "superman":{
+        "name":"Superman",
+        "calories":"95-115 Calories",
+        "difficulty":2,
+        "type":"cut",
+        "region":"lower body",
+        "specific body part":"abs, lower back, glutes, hamstrings",
+        "sets":3,
+        "reps":10,
+        "weights": "no",
+        "id":4
+    },
+    "plank tap":{
+        "name":"Plank Tap",
+        "calories":"100-120 Calories",
+        "difficulty":2,
+        "type":"cut",
+        "region":"upper body",
+        "specific body part":"triceps, deltoids, lats, glutes, and core",
+        "sets":3,
+        "reps":10,
+        "weights": "no",
+        "id":5
+    },
+    "dips":{
+        "name":"Tricep Dips",
+        "calories":"80-100 Calories",
+        "difficulty":2,
+        "type":"cut",
+        "region":"upper body",
+        "specific body part":"triceps",
+        "sets":3,
+        "reps":10,
+        "weights": "no",
+        "id":6
+    },
+    "squats":{
+        "name":"Goblet Squats",
+        "calories":"90-100 Calories",
+        "difficulty":4,
+        "type":"bulk",
+        "region":"legs",
+        "specific body part":"quads and glutes",
+        "sets": 3,
+        "reps": 10,
+        "weights": "yes",
+        "id":7
+    },
+    "lunges":{
+        "name":"Pendulum Lunges",
+        "calories":"75-95 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"legs",
+        "specific body part":"glutes, hamstrings, and calves",
+        "sets": 3,
+        "reps": 10,
+        "weights": "optional",
+        "id":8
 
+    },
+    "deadlifts":{
+        "name":"Deadlifts",
+        "calories":"80-100 Calories",
+        "difficulty":4,
+        "type":"bulk",
+        "region":"legs",
+        "specific body part":"glutes, hamstrings, core, upper back",
+        "sets": 3,
+        "reps": 12,
+        "weights": "yes",
+        "id":9
+    },
+    "step-ups":{
+        "name":"Step-ups",
+        "calories":"95-115 Calories",
+        "difficulty":2,
+        "type":"bulk",
+        "region":"legs",
+        "specific body part":"glutes, hamstrings, core and calves",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id":10
+    },
+    "touchdown-jacks":{
+        "name":"Touchdown Jacks",
+        "calories":"100-120 Calories",
+        "difficulty": 3,
+        "type":"cut",
+        "region":"legs",
+        "specific body part":"glutes, core and cores",
+        "sets": 3,
+        "reps": 12,
+        "weights": "no",
+        "id":11
+    },
+    "pull-apart":{
+        "name":"Pull-apart",
+        "calories":"100-120 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"upper back, shoulder",
+        "sets": 3,
+        "reps": 8,
+        "weights": "no",
+        "id":12
+    },
+    "row":{
+        "name":"Suspended Row",
+        "calories":"95-115 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"core, shoulders, biceps and back",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 13
+    },
+    "pullup":{
+        "name":"Pullup",
+        "calories":"75-95 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"shoulders, forearms, upper back",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 14
+    },
+    "forearm":{
+        "name":"Forearm Plank",
+        "calories":"100-120 Calories",
+        "difficulty":2,
+        "type":"bulk",
+        "region":"upper body",
+        "specific body part":"core, upper body, shoulders, arms and legs",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 15
+    },
+    "pressup":{
+        "name":"Diamond Press-up",
+        "calories":"90-110 Calories",
+        "difficulty":2,
+        "type":"bulk",
+        "region":"arms",
+        "specific body part":"triceps and chest",
+        "sets": 3,
+        "reps": 10,
+        "weights": "no",
+        "id": 16
+    },
+    "extensions":{
+        "name":"Leg Extensions",
+        "calories":"100-120 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"arms",
+        "specific body part":"legs, quads, lower back",
+        "sets": 3,
+        "reps": 10,
+        "weights":"yes",
+        "id": 17
+    }
 }
