@@ -21,16 +21,20 @@ class Exercise():
             self.weight_light = 20
             self.weight_medium = 30
             self.weight_heavy = 40
+        elif(region == 'legs'):
+            self.weight_light = 50
+            self.weight_medium = 70
+            self.weight_heavy = 90
 
 
 
     def getweight(self, bmi):
         if self.weighted:
-            if bmi < 1:
+            if bmi < 18.5:
                 return self.weight_light
-            elif bmi < 2:
+            elif bmi < 24.9:
                 return self.weight_medium
-            elif bmi < 3:
+            else:
                 return self.weight_heavy
         else:
             return None
