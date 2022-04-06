@@ -182,12 +182,18 @@ def meals():
                             user = current_user, current = load_mealplans.getmealplan(current_user.get_mealplan()), mealplans = load_mealplans.getmealplans())
 
 
-@app.route('/exercises')
+@app.route('/exercises', methods=['GET','POST'])
 @login_required
 @complete_profile_required
 def exercises():
+    if request.method == 'POST':
+        sw = request.form.get('action1')
+        print(sw)
+        #current_user.setexercise(load_exercise.getexercise_basedonname(sw).getid())
+        return exercise(load_exercise.getexercise_basedonname(sw).getid())
     #current_user.set_exercise_weight(1, 140)
-    return render_template('exercises.html', title='Exercises',
+    else:
+        return render_template('exercises.html', title='Exercises',
                            user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
 
 
@@ -195,27 +201,37 @@ def exercises():
 @login_required
 @complete_profile_required
 def exercise(exercise_id: int):
-    return render_template('index.html', title=f'Exercise: {exercise_id}')
+    print("here")
+    return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
+                            user = current_user, exercise = load_exercise.getexercise(exercise_id))
 
-@app.route('/setexercise', methods=['GET','POST'])
-@login_required
-@complete_profile_required
-def setmeal():
-    if request.method == 'POST':
-        if request.form.get('action1') == 'Bicep Curls':
-            current_user.setexercise(load_exercise.getexercises()[0].getid())
-        elif request.form.get('action2') == 'Kettlebell Swing':
-            current_user.setexercise(load_exercise.getexercises()[1].getid())
-        elif request.form.get('action3') == 'Goblet Squats':
-            current_user.setexercise(load_exercise.getexercises()[2].getid())
-        elif request.form.get('action4') == 'Deadlifts':
-            current_user.setexercise(load_exercise.getexercises()[0].getid())
-        elif request.form.get('action5') == 'Kettlebell Swing':
-            current_user.setexercise(load_exercise.getexercises()[1].getid())
-        elif request.form.get('action6') == 'Goblet Squats':
-            current_user.setexercise(load_exercise.getexercises()[2].getid())
-    return render_template('exercises.html', title='Exercises',
-                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
+# @app.route('/setexercise', methods=['GET','POST'])
+# @login_required
+# @complete_profile_required
+# def setmeal():
+#     if request.method == 'POST':
+#         sw = request.form.get('action1')
+#         current_user.setexercise(load_exercise.getexercise_basedonname(sw).getid())
+#         # if sw == 'Bicep Curls':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Bicep Curls').getid())
+#         # elif sw == 'Kettlebell Swing':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Kettlebell Swing').getid())
+#         # elif sw == 'Goblet Squats':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Goblet Squats').getid())
+#         # elif sw == 'Deadlifts':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Deadlifts').getid())
+#         # elif sw == 'Kettlebell Swing':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Kettlebell Swing').getid())
+#         # elif sw == 'Goblet Squats':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Goblet Squats').getid())
+#         # elif sw == 'Pendulum Lunges':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Pendulum Lunges').getid())
+#         # elif sw == 'Deadlifts':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Deadlifts').getid())
+#         # elif sw == 'Leg Extensions':
+#         #     current_user.setexercise(load_exercise.getexercise_basedonname('Leg Extensions').getid())
+#     return render_template('exercises.html', title='Exercises',
+#                            user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
 
 
 @app.route('/follow/<username>', methods=['POST'])
