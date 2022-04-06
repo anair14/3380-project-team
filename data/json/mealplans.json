@@ -1,0 +1,37 @@
+{
+    "salad":{
+        "name": "Chicken Satay Salad",
+        "calories": 353,
+        "image":" https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chicken-satay-salad-8f5b068.jpg?quality=90&webp=true&resize=300,272",
+        "vegetarian": "no",
+        "id": 1
+    },
+    "linguine":{
+        "name": "Linguine with Avacado, Tomato, & Lime",
+        "calories": 450,
+        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/linguine-with-avocado-tomato-lime-9638698.jpg?quality=90&webp=true&resize=300,272",
+        "vegetarian": "yes",
+        "id": 2
+    },
+    "souvlaki":{
+        "name": "Pork Souvlaki",
+        "calories": 210,
+        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/pork-souvlaki-1380e9d.jpg?quality=90&webp=true&resize=300,272",
+        "vegetarian": "no",
+        "id": 3
+    },
+    "cod":{
+        "name": "Roasted cod with zingy beetroot salad",
+        "calories": 262,
+        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2021/08/Roasted-cod-with-zingy-beetroot-salad-aff170b.jpg?quality=90&webp=true&resize=300,272",
+        "vegetarian": "no",
+        "id": 4
+    },
+    "pomegranatechicken":{
+        "name": "Pomegranate Chicken with almond couscous",
+        "calories": 590,
+        "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/pomegranate-chicken-24d0745.jpg?quality=90&webp=true&resize=300,272",
+        "vegetarian": "no",
+        "id": 5
+    }
+}

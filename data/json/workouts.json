@@ -191,5 +191,17 @@
         "reps": 10,
         "weights": "no",
         "id": 16
+    },
+    "extensions":{
+        "name":"Leg Extensions",
+        "calories":"100-120 Calories",
+        "difficulty":3,
+        "type":"bulk",
+        "region":"arms",
+        "specific body part":"legs, quads, lower back",
+        "sets": 3,
+        "reps": 10,
+        "weights":"yes",
+        "id": 17
     }
 }
