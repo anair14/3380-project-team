@@ -1,6 +1,5 @@
 from re import I
 from flask import Flask
-from flask_login import current_user
 import json
 from pathlib import Path
 
@@ -75,6 +74,7 @@ print(p)
 f = open(p, "r")
 data = json.load(f)
 i = 0
+exercisesn_weighted.append(Exercise(-1, 'N/A', 0, 0, 0, 0, 0, 0, 0, True))
 for e in data:
 #    exercises.append(i, e['name'], e['calories'], e['difficulty'], e['type'], e['region'], e['specific body part'], e['sets'], e['reps'])
     # exercises.append(i, e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[7])
@@ -87,6 +87,7 @@ for e in data:
         exercises_weighted.append(Exercise(i, data[e]['name'], data[e]['calories'], data[e]['difficulty'], 
                 data[e]['type'], data[e]['region'], data[e]['specific body part'], data[e]['sets'], 
                 data[e] ['reps'], True))
+    i = i+1
 
 
     

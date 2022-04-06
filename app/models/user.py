@@ -10,6 +10,7 @@ from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
 from ..json_info import load_exercise
+from ..json_info import load_mealplans
 
 followers = db.Table(
     'followers',
@@ -44,6 +45,7 @@ class User(UserMixin, db.Model):
     current_exercise_id = db.Column(db.Integer())
     exercise_weight_id = db.Column(db.PickleType())
     exercise_weight = db.Column(db.PickleType())
+    current_mealplan_id = db.Column(db.Integer())
     # display_metric = db.Boolean
 
     followed = db.relationship(
@@ -120,12 +122,28 @@ class User(UserMixin, db.Model):
         else:
             return load_exercise.getweight(exercise_id, self.height, self.weight)
 
+    def setexercise(self, exercise_id):
+        print(exercise_id)
+        self.current_exercise_id = exercise_id
+        db.session.commit()
+
     def get_exercise_weights(self):
         weights = []
         for e in load_exercise.getwexercises():
             weights.append([id, self.get_exercise_weight(e.getid())])
-
         return weights
+
+    def get_exercise(self):
+        if self.current_exercise_id is None:
+            return -1
+        return self.current_exercise_id
+
+    def set_mealplan(self, id):
+        self.current_mealplan_id = id
+        db.session.commit()
+
+    def get_mealplan(self):
+        return load_mealplans.getmealplan(self.current_mealplan_id)
 
 
 

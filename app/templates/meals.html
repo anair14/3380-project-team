@@ -1,0 +1,14 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p>Mealplans for {{ user.first_name }} {{ user.last_name }}</p>
+  <h3>Our Flask Buttons<h3>
+    <form method="post" action="/setmealplan">
+        <input type="submit" value='{{mealplans[0]}}' name="action1"/>
+        <input type="submit" value='{{mealplans[1].name}}' name="action2" />
+        <input type="submit" value='{{mealplans[2].name}}' name="action3" />
+    </form>
+{% endblock content %}
+
+{# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}

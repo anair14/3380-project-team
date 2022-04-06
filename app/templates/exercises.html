@@ -3,6 +3,16 @@
 {% block content %}
   <h1>{{ title }}</h1>
   <p>Exercises for {{ user.first_name }} {{ user.last_name }}</p>
+  <p>Current Exercise:  {{current.name}}</p>
+  <h3>Pick an Exercise <h3>
+    <form method="post" action="/setexercise">
+        <input type="submit" value='{{exercises[0]}}' name="action1"/>
+        <input type="submit" value='{{exercises[1]}}' name="action1" />
+        <input type="submit" value='{{exercises[2]}}' name="action1" />
+        <input type="submit" value='{{exercises[3]}}' name="action1"/>
+        <input type="submit" value='{{exercises[4]}}' name="action1" />
+        <input type="submit" value='{{exercises[5]}}' name="action1" />
+    </form>
 {% endblock content %}
 
 {# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}
