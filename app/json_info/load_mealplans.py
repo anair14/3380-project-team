@@ -30,11 +30,21 @@ class MealPlan():
 
 
 def getmealplan(id):
+    id = int(id)
     for mealplan in mealplans_v:
         if mealplan.id == id:
             return mealplan
     for mealplan in mealplans:
         if mealplan.id == id:
+            return mealplan
+    return None
+
+def getmealplan_basedonname(name):
+    for mealplan in mealplans_v:
+        if mealplan.name == name:
+            return mealplan
+    for mealplan in mealplans:
+        if mealplan.name == name:
             return mealplan
     return None
 

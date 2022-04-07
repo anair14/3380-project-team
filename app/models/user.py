@@ -143,7 +143,7 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def get_mealplan(self):
-        return load_mealplans.getmealplan(self.current_mealplan_id)
+        return self.current_mealplan_id
 
     def url_for(self):
         return f'/user/{self.username}'

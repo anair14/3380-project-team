@@ -171,13 +171,30 @@ def user(username: str):
 @login_required
 @complete_profile_required
 def meal(meal_id: int):
-    return render_template('index.html', title=f'Meal: {meal_id}')
+    print(load_mealplans.getmealplan(meal_id))
+    return render_template('meal.html', title=f'Meal: {meal_id}',
+                            user = current_user, meal = load_mealplans.getmealplan(meal_id))
+
+@app.route('/setmeal', methods = ['GET', 'POST'])
+@login_required
+@complete_profile_required
+def setmeal():
+    if request.method == 'POST':
+        sw = request.form.get('action2')
+        for meal in load_mealplans.getmealplans():
+            if sw == 'Set ' + str(meal) + ' As Current Meal':
+                current_user.set_mealplan(meal.getid())
+                return redirect(url_for('meals'))
 
 
-@app.route('/meals')
+@app.route('/meals', methods=['GET', 'POST'])
 @login_required
 @complete_profile_required
 def meals():
+    if request.method == 'POST':
+        sw = request.form.get('action1')
+        #print(load_mealplans.getmealplan_basedonname(sw))
+        return redirect(url_for('meal', meal_id = load_mealplans.getmealplan_basedonname(sw).getid())) 
     return render_template('meals.html', title='Meals',
                             user = current_user, current = load_mealplans.getmealplan(current_user.get_mealplan()), mealplans = load_mealplans.getmealplans())
 
@@ -189,7 +206,6 @@ def exercises():
     if request.method == 'POST':
         sw = request.form.get('action1')
         return redirect(url_for('exercise', exercise_id = load_exercise.getexercise_basedonname(sw).getid()))
-    #current_user.set_exercise_weight(1, 140)
     else:
         return render_template('exercises.html', title='Exercises',
                            user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
