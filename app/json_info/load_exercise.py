@@ -52,7 +52,9 @@ def getwexercises():
         
 
     
-def getexercise(id):
+def getexercise(id: int):
+    # print("here1")
+    id = int(id)
     for exercise in exercises_weighted:
         if exercise.id == id:
             return exercise
