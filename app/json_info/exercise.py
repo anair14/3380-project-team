@@ -51,6 +51,7 @@ class Exercise():
     #string version of exercise
     def __str__(self):
         return self.name
+        
 class ExercisePlan():
     def __init__(self):
         #load exercises from exercise_file.json

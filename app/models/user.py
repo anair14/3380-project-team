@@ -205,7 +205,7 @@ class User(UserMixin, db.Model):
         # if we haven't customized the weight, return the default weight
         # based on bmi
         else:
-            return load_exercise.getweight(
+            return exerciseplan.get_weight(
                 exercise_id,
                 self.height,
                 self.weight
