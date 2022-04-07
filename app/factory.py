@@ -30,7 +30,6 @@ def create_app(config: str = None) -> Flask:
     bootstrap.init_app(app)
     login.init_app(app)
     mail.init_app(app)
-    #load_exercise.init_app(app)
 
     with app.app_context():
         from . import routes
