@@ -14,10 +14,17 @@ app = create_app('config.Development')
 
 
 def add_user(user: UserGen, count: int = 0) -> None:
+    """Add the current user to the database.
+
+    :param user: UserGen to be generated and added to the database
+    :param count: optional count parameter
+    """
     db.session.add(user.generate())
     try:
         db.session.commit()
     except sqlalchemy.exc.IntegrityError:
+        # user already exists with current username or email, so we increment
+        # count and recurse
         db.session.rollback()
         count = count + 1
         user.gen_un(count=count)
@@ -26,10 +33,16 @@ def add_user(user: UserGen, count: int = 0) -> None:
 
 
 def create_users(num_users: int = 1) -> int:
+    """Creates num_users number of users.
+
+    :param num_users: the number of users to be created
+    :return: the number of users generated, see comment below
+    """
     with app.app_context():
         generated = 0
         for i in range(num_users):
             add_user(UserGen().populate())
+            # i was going to check for duplicates, but that's a whole thing
             generated = generated + 1
         return generated
 
