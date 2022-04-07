@@ -1,6 +1,6 @@
 {% import 'macros/navigation.html' as nav %}
 {% block navbar %}
-  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ url_for('index') }}">Workout App</a>
       <button class="navbar-toggler"
@@ -9,7 +9,7 @@
               data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link {{ nav.is_active(['', 'index']) }}"
