@@ -9,8 +9,10 @@ from hashlib import md5
 from . import db
 from .exercise import ExercisePlan
 from .meal import MealPlan
-from ..json_info import load_exercise
-from ..json_info import load_mealplans
+from ..json_info import exercise
+from ..json_info import mealplan
+
+exerciseplan = exercise.ExercisePlan()
 
 followers = db.Table(
     'followers',
@@ -142,7 +144,7 @@ class User(UserMixin, db.Model):
             return self.exercise_weight[i]
         #if we haven't customized the weight, return the default weight based on bmi
         else:
-            return load_exercise.getweight(exercise_id, self.height, self.weight)
+            return exerciseplan.getweight(exercise_id, self.height, self.weight)
 
     #set the users current exercise
     def setexercise(self, exercise_id):
@@ -152,7 +154,7 @@ class User(UserMixin, db.Model):
     #get a list of all exercise weights
     def get_exercise_weights(self):
         weights = []
-        for e in load_exercise.getwexercises():
+        for e in exerciseplan.getwexercises():
             weights.append([id, self.get_exercise_weight(e.getid())])
         return weights
 
