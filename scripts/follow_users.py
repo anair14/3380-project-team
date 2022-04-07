@@ -13,6 +13,11 @@ app = create_app('config.Development')
 
 
 def follow_users(num_followers: int) -> int:
+    """Follows num_followers for each user in the database.
+
+    :param num_followers: number of followers for each user to follow
+    :return: number of users in the database
+    """
     with app.app_context():
         user_count = User.query.count()
 
