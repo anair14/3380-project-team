@@ -23,11 +23,12 @@ from .json_info import load_exercise
 from .json_info import load_mealplans
 
 
-#@app.route('/')
+#default page to load to when user isn't signed in
 @app.route('/index')
 def index():
     return render_template('index.html', title='Home')
 
+#home page when user is signed in, shows users current mealplan and exercise
 @app.route('/')
 @app.route('/home')
 @login_required
@@ -35,11 +36,13 @@ def home():
     return render_template('home.html', title='Home', user = current_user,
                             currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
 
+#redirect to all exercises
 @app.route('/redirectexercises', methods=['GET','POST'])
 @login_required
 def redirectexercises():
     return redirect(url_for('exercises'))
 
+#redirect to all mealplans
 @app.route('/redirectmeals', methods=['GET','POST'])
 @login_required
 def redirectmeals():
@@ -183,15 +186,17 @@ def user(username: str):
     form = EmptyForm()
     return render_template('user.html', user=user, form=form)
 
-
+#looking at a specific mealplan
 @app.route('/meal/<meal_id>')
 @login_required
 @complete_profile_required
+#must input id of meal looking at, allows function to be general for all meals
 def meal(meal_id: int):
     print(load_mealplans.getmealplan(meal_id))
     return render_template('meal.html', title=f'Meal: {meal_id}',
                             user = current_user, meal = load_mealplans.getmealplan(meal_id))
 
+#set the users current mealplan, method to respond to the button in /meal/<meal_id>
 @app.route('/setmeal', methods = ['GET', 'POST'])
 @login_required
 @complete_profile_required
@@ -199,66 +204,80 @@ def setmeal():
     if request.method == 'POST':
         sw = request.form.get('action2')
         for meal in load_mealplans.getmealplans():
+            #determine which meal is being set to the current
             if sw == 'Set ' + str(meal) + ' As Current Meal':
                 current_user.set_mealplan(meal.getid())
+                #redirect back to all meals after setting current
                 return redirect(url_for('meals'))
 
-
+#view all meals, also handles button to view a specific meal
 @app.route('/meals', methods=['GET', 'POST'])
 @login_required
 @complete_profile_required
 def meals():
+    #if a button is pressed, determine which button was pressed and redirect to the correct mealplan
     if request.method == 'POST':
         sw = request.form.get('action1')
-        #print(load_mealplans.getmealplan_basedonname(sw))
         return redirect(url_for('meal', meal_id = load_mealplans.getmealplan_basedonname(sw).getid())) 
+    #if button wasn't pressed, simply display meals
     return render_template('meals.html', title='Meals',
                             user = current_user, current = load_mealplans.getmealplan(current_user.get_mealplan()), mealplans = load_mealplans.getmealplans())
 
-
+#view all exercises, also handles button to view specific exercise
 @app.route('/exercises', methods=['GET','POST'])
 @login_required
 @complete_profile_required
 def exercises():
+    #if button is pressed, determine which button was pressed and redirect to the correct exercise
     if request.method == 'POST':
         sw = request.form.get('action1')
         return redirect(url_for('exercise', exercise_id = load_exercise.getexercise_basedonname(sw).getid()))
+    #if button wasn't pressed, simply display all exercises
     else:
         return render_template('exercises.html', title='Exercises',
                            user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises())
 
-
+#view a specific exercise 
+#handles both weighted and unweighted exercises
 @app.route('/exercise/<exercise_id>', methods=['GET','POST'])
 @login_required
 @complete_profile_required
 def exercise(exercise_id: int):
+    #determine if the exercise associated with exercise_id is weighted or not
     if(load_exercise.getexercise(exercise_id).isweighted()):
+        #display weighted exercise, utilizes current_user.get_exercise_weight to account for custom weights
         return render_template('exerciseweighted.html', title=f'Exercise: {exercise_id}',
                             user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = load_exercise.getexercise(exercise_id))
     else:
+        #display unweighted exercise
         return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
                             user = current_user, exercise = load_exercise.getexercise(exercise_id))
 
+#set current exercise, responds to button in /exercise/<exercise_id>
 @app.route('/setexercise', methods=['GET','POST'])
 @login_required
 @complete_profile_required
 def setexercise():
     if request.method == 'POST':
         sw = request.form.get('action2')
+        #determine which exercise to set to current
         for exercise in load_exercise.getexercises():
             if sw == 'Set ' + str(exercise) + ' As Current Exercise':
                 current_user.setexercise(exercise.getid())
                 return redirect(url_for('exercises'))
 
+#set a custom weight for an exercise
+#responds to button in /exercise/<exercise_id>
 @app.route('/setweight', methods=['GET', 'POST'])
 @login_required
 @complete_profile_required
 def setweight():
     sw = request.form.get('action2')
+    #determine which exercise to set the weight for 
     for exercise in load_exercise.getexercises():
         if sw == 'Set ' + str(exercise) + "'s weight":
+            #set the weight for current_user to whatever is pulled from the text box
             current_user.set_exercise_weight(exercise.getid(), request.form['text'])
-            #print(current_user.get_exercise_weight(exercise.getid()))
     return redirect(url_for('home'))
 
 
