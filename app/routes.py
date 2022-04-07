@@ -29,6 +29,16 @@ def index():
     return render_template('index.html', title='Home', user = current_user,
                             currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
 
+@app.route('/redirectexercises', methods=['GET','POST'])
+@login_required
+def redirectexercises():
+    return redirect(url_for('exercises'))
+
+@app.route('/redirectmeals', methods=['GET','POST'])
+@login_required
+def redirectmeals():
+    return redirect(url_for('meals'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

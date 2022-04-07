@@ -8,9 +8,15 @@
       <p>Calories: {{currente.calories}}</p>
       <p>Difficulty: {{currente.diff}}</p>
       <p>Type: {{currente.type}}</p>
+      <form method="post" action= "/redirectexercises">
+        <input type="submit" value="Look at all Exercises" name="action1"/>
+      </form>
     <h2>Current Mealplan: {{currentm.name}}</h2>
       <p>Calories: {{currentm.calories}}</p>
       <p>vegetarian: {{currentm.vegetarian}}</p>
+      <form method="post" action= "/redirectmeals">
+        <input type="submit" value="Look at all Meals" name="action1"/>
+      </form>
   </body>
 {% endblock content %}
 
