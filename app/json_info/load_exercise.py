@@ -15,7 +15,7 @@ class Exercise():
         self.part = part
         self.sets = sets
         self.reps = reps
-        self.weighted = True
+        self.weighted = weighted
         if(region == 'arms'):
             self.weight_light = 20
             self.weight_medium = 30
