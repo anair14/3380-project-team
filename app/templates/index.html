@@ -3,9 +3,14 @@
 {% block content %}
   <h1>{{ title }}</h1>
   <body style="background-color:grey;">
-    <p>"ayo wazzam"</p>
-    <p>"Morbius"</p>
-    <p>"Bruh"</p>
+    <p>{{user.first_name}} {{user.last_name}}</p>
+    <h2>Current Exercise: {{currente.name}}</h2>
+      <p>Calories: {{currente.calories}}</p>
+      <p>Difficulty: {{currente.diff}}</p>
+      <p>Type: {{currente.type}}</p>
+    <h2>Current Mealplan: {{currentm.name}}</h2>
+      <p>Calories: {{currentm.calories}}</p>
+      <p>vegetarian: {{currentm.vegetarian}}</p>
   </body>
 {% endblock content %}
 
