@@ -26,8 +26,7 @@ from .json_info import load_mealplans
 #@app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home', user = current_user,
-                            currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
+    return render_template('index.html', title='Home')
 
 @app.route('/')
 @app.route('/home')

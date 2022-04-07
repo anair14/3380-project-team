@@ -102,13 +102,19 @@ class User(UserMixin, db.Model):
             digest, size)
 
     def set_exercise_weight(self, exercise_id, weight):
-        print(self.exercise_weight_id)
         if self.exercise_weight_id is None or self.exercise_weight_id == []:
             self.exercise_weight_id = [exercise_id]
             self.exercise_weight = [weight]
         else:
-            self.exercise_weight_id = self.exercise_weight_id + [exercise_id]
-            self.exercise_weight = self.exercise_weight + [int(weight)]
+            if exercise_id in self.exercise_weight_id:
+                i = self.exercise_weight_id.index(exercise_id)
+                self.exercise_weight_id = self.exercise_weight_id + [exercise_id]
+                self.exercise_weight = self.exercise_weight + [int(weight)]
+                self.exercise_weight_id.pop(i)
+                self.exercise_weight.pop(i)
+            else:
+                self.exercise_weight_id = self.exercise_weight_id + [exercise_id]
+                self.exercise_weight = self.exercise_weight + [int(weight)]
         db.session.commit()
         # print(self.exercise_weight)
 
