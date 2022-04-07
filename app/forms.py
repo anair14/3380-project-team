@@ -18,7 +18,8 @@ from .utils.form_validators import (validate_email,
                                     validate_username,
                                     validate_password,
                                     validate_new_password,
-                                    validate_new_username, validate_new_email)
+                                    validate_new_username,
+                                    validate_new_email)
 
 
 class LoginForm(FlaskForm):
