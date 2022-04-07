@@ -291,7 +291,7 @@ def followers_list(username: str):
     user = User.query.filter_by(username=username).first_or_404()
     followers = user.followers
     return render_template(
-        'followers.html', title='Followers', followers=followers
+        'followers.html', title='Followers', followers=followers, user=user
     )
 
 
@@ -300,7 +300,7 @@ def followings_list(username: str):
     user = User.query.filter_by(username=username).first_or_404()
     followed = user.followed
     return render_template(
-        'followed.html', title='Followed', followed=followed
+        'followed.html', title='Followed', followed=followed, user=user
     )
 
 
