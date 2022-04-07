@@ -23,10 +23,17 @@ from .json_info import load_exercise
 from .json_info import load_mealplans
 
 
-@app.route('/')
+#@app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html', title='Home', user = current_user,
+                            currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
+
+@app.route('/')
+@app.route('/home')
+@login_required
+def home():
+    return render_template('home.html', title='Home', user = current_user,
                             currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
 
 @app.route('/redirectexercises', methods=['GET','POST'])
@@ -43,7 +50,7 @@ def redirectmeals():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     form = LoginForm()
 
@@ -53,7 +60,7 @@ def login():
             flash('Invalid username or password.', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('login.html', form=form)
 
 
