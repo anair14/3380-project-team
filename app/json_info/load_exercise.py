@@ -88,7 +88,7 @@ print(p)
 f = open(p, "r")
 data = json.load(f)
 i = 0
-#exercisesn_weighted.append(Exercise(-1, 'N/A', 0, 0, 0, 0, 0, 0, 0, True))
+exercisesn_weighted.append(Exercise(-1, 'No Exercise Selected Yet', 0, 0, 0, 0, 0, 0, 0, True))
 for e in data:
 #    exercises.append(i, e['name'], e['calories'], e['difficulty'], e['type'], e['region'], e['specific body part'], e['sets'], e['reps'])
     # exercises.append(i, e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[7])

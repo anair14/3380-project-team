@@ -143,6 +143,8 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def get_mealplan(self):
+        if self.current_mealplan_id is None:
+            return -1
         return self.current_mealplan_id
 
     def url_for(self):

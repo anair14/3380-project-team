@@ -62,6 +62,7 @@ p = Path(Path.cwd(), 'app', 'json_info', 'mealplan_file.json')
 f = open(p, "r")
 data = json.load(f)
 i = 0
+mealplans_v.append(MealPlan(-1, "No Meal Selected Yet", 0, 0, True))
 for e in data:
     if data[e]['vegetarian'] == 'yes':
         mealplans_v.append(MealPlan(i, data[e]['name'], data[e]['calories'], data[e]['image'], True))
