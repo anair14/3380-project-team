@@ -2,18 +2,25 @@
 <html lang="en">
 {% block html %}
   <head>
-  {% block head %}
-    {% block metas %}
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>
-      {% block title %}{{ title }}{% endblock title %}
-      </title>
-    {% endblock metas %}
-    {% block styles %}
-      {{ bootstrap.load_css() }}
-    {% endblock styles %}
-  {% endblock head %}
+    {% block head %}
+      {% block metas %}
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>
+          {% block title %}{{ title }}{% endblock title %}
+        </title>
+      {% endblock metas %}
+      {% block styles %}
+        {{ bootstrap.load_css() }}
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/signin.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/register.css') }}">
+      {% endblock styles %}
+    {% endblock head %}
   </head>
   <body>
   {% block body %}

@@ -1,7 +1,27 @@
 {% extends 'extends/__base.html' %}
-{% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
-  <h1>Login</h1>
-  {{ render_form(form) }}
+  <div class="text-center form-register">
+    <form method="post" action="" role="form">
+      <h1 class="h3 mb-auto-3 fw-normal">Register</h1>
+      {{ form.csrf_token }}
+      <div class="form-floating">
+        {{ form.username(class='form-control', id='floatingInput', type='username', placeholder=form.username.description) }}
+        {{ form.username.label }}
+      </div>
+      <div class="form-floating">
+        {{ form.email(class='form-control', id='floatingInput', type='email', placeholder=form.email.description) }}
+        {{ form.email.label }}
+      </div>
+      <div class="form-floating">
+        {{ form.password(class='form-control password', id='floatingInput', type='password', placeholder=form.password.description) }}
+        {{ form.password.label }}
+      </div>
+      <div class="form-floating">
+        {{ form.password_repeat(class='form-control password-repeat', id='floatingInput', type='password', placeholder=form.password_repeat.description) }}
+        {{ form.password_repeat.label }}
+      </div>
+      {{ form.submit(class='w-100 btn btn-lg btn-primary', type='submit') }}
+    </form>
+  </div>
 {% endblock content %}
