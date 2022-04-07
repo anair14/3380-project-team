@@ -234,7 +234,6 @@ def exercises():
 @complete_profile_required
 def exercise(exercise_id: int):
     if(load_exercise.getexercise(exercise_id).isweighted()):
-        print("here")
         return render_template('exerciseweighted.html', title=f'Exercise: {exercise_id}',
                             user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = load_exercise.getexercise(exercise_id))
     else:
