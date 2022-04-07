@@ -1,7 +1,18 @@
 {% extends 'extends/__base.html' %}
 
 {% block content %}
+<center>
+<div class="card" style="width: 18rem; margin-top: 30px">
+  <div class="card-header">
+    {{ user.username }} followers:
+  </div>
+  <ul class="list-group list-group-flush">
     {% for follower in followers %}
-        <a href="/user/{{ follower.username }}"><li>{{ follower }}</li></a>
+        <a href="/user/{{ follower.username }}">
+            <li class="list-group-item">{{ follower.username }}</li>
+        </a>
     {% endfor %}
+  </ul>
+</div>
+</center>
 {% endblock content %}

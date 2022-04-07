@@ -5,13 +5,24 @@
   <p>Exercises for {{ user.first_name }} {{ user.last_name }}</p>
   <p>Current Exercise:  {{current.name}}</p>
   <h3>Pick an Exercise <h3>
-    <form method="post" action="/setexercise">
+    <form method="post" action="/exercises">
         <input type="submit" value='{{exercises[0]}}' name="action1"/>
         <input type="submit" value='{{exercises[1]}}' name="action1" />
         <input type="submit" value='{{exercises[2]}}' name="action1" />
         <input type="submit" value='{{exercises[3]}}' name="action1"/>
         <input type="submit" value='{{exercises[4]}}' name="action1" />
         <input type="submit" value='{{exercises[5]}}' name="action1" />
+        <input type="submit" value='{{exercises[6]}}' name="action1" />
+        <input type="submit" value='{{exercises[7]}}' name="action1" />
+        <input type="submit" value='{{exercises[8]}}' name="action1"/>
+        <input type="submit" value='{{exercises[9]}}' name="action1"/>
+        <input type="submit" value='{{exercises[10]}}' name="action1" />
+        <input type="submit" value='{{exercises[11]}}' name="action1" />
+        <input type="submit" value='{{exercises[12]}}' name="action1"/>
+        <input type="submit" value='{{exercises[13]}}' name="action1" />
+        <input type="submit" value='{{exercises[14]}}' name="action1" />
+        <input type="submit" value='{{exercises[15]}}' name="action1" />
+        <input type="submit" value='{{exercises[16]}}' name="action1" />
     </form>
 {% endblock content %}
 

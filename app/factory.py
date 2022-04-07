@@ -5,7 +5,6 @@ from flask_mail import Mail
 
 from .models import db, migrate
 from .models.user import User
-from .navigation import nav
 
 
 def create_app(config: str = None) -> Flask:
@@ -28,7 +27,6 @@ def create_app(config: str = None) -> Flask:
 
     db.init_app(app)
     migrate.init_app(app, db)
-    nav.init_app(app)
     bootstrap.init_app(app)
     login.init_app(app)
     mail.init_app(app)

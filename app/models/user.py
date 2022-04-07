@@ -43,8 +43,8 @@ class User(UserMixin, db.Model):
     height = db.Column(db.Float())
     weight = db.Column(db.Float())
     current_exercise_id = db.Column(db.Integer())
-    exercise_weight_id = db.Column(db.PickleType())
-    exercise_weight = db.Column(db.PickleType())
+    exercise_weight_id = db.Column(db.PickleType(), nullable = True)
+    exercise_weight = db.Column(db.PickleType(), nullable = True)
     current_mealplan_id = db.Column(db.Integer())
     # display_metric = db.Boolean
 
@@ -61,7 +61,7 @@ class User(UserMixin, db.Model):
     )
 
     def __repr__(self):
-        return f'<User {self.username}, id: {self.id}, current_exercise_id {self.current_exercise_id}, exercise_weight_id {self.exercise_weight_id}>'
+        return f'<User {self.username}, id: {self.id}, current_exercise_id {self.current_exercise_id}, exercise_weight_id {self.exercise_weight_id}, exercise_weight {self.exercise_weight}>'
 
     def set_password(self, new_password: str) -> None:
         if app.debug:
@@ -102,16 +102,19 @@ class User(UserMixin, db.Model):
             digest, size)
 
     def set_exercise_weight(self, exercise_id, weight):
-        if self.exercise_weight_id is None:
+        print(self.exercise_weight_id)
+        if self.exercise_weight_id is None or self.exercise_weight_id == []:
             self.exercise_weight_id = [exercise_id]
             self.exercise_weight = [weight]
         else:
-            self.exercise_weight_id = self.exercise_weight_id.append(exercise_id)
-            self.exercise_weight.append(weight)
+            self.exercise_weight_id = self.exercise_weight_id + [exercise_id]
+            self.exercise_weight = self.exercise_weight + [int(weight)]
         db.session.commit()
+        # print(self.exercise_weight)
 
     def get_exercise_weight(self, exercise_id):
         print(self)
+        exercise_id = int(exercise_id)
         if(self.exercise_weight_id is None):
             self.exercise_weight_id = []
             self.exercise_weight = []
@@ -143,11 +146,11 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def get_mealplan(self):
-        return load_mealplans.getmealplan(self.current_mealplan_id)
+        if self.current_mealplan_id is None:
+            return -1
+        return self.current_mealplan_id
 
-
-
-
-
+    def url_for(self):
+        return f'/user/{self.username}'
 
 # vim: ft=python ts=4 sw=4 sts=4 et

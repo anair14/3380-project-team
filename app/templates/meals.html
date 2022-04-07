@@ -3,11 +3,14 @@
 {% block content %}
   <h1>{{ title }}</h1>
   <p>Mealplans for {{ user.first_name }} {{ user.last_name }}</p>
-  <h3>Our Flask Buttons<h3>
-    <form method="post" action="/setmealplan">
+  <p>Current Mealplan: {{current.name}}</p>
+  <h3>Pick a Meal<h3>
+    <form method="post" action="/meals">
         <input type="submit" value='{{mealplans[0]}}' name="action1"/>
-        <input type="submit" value='{{mealplans[1].name}}' name="action2" />
-        <input type="submit" value='{{mealplans[2].name}}' name="action3" />
+        <input type="submit" value='{{mealplans[1]}}' name="action1" />
+        <input type="submit" value='{{mealplans[2]}}' name="action1" />
+        <input type="submit" value='{{mealplans[3]}}' name="action1"/>
+        <input type="submit" value='{{mealplans[4]}}' name="action1" />
     </form>
 {% endblock content %}
 

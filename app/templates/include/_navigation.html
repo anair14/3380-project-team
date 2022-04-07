@@ -1,9 +1,78 @@
+{% import 'macros/navigation.html' as nav %}
 {% block navbar %}
-{% if current_user.is_authenticated %}
-{{ nav.auth_nav.render() }}
-{% else %}
-{{ nav.not_auth_nav.render() }}
-{% endif %}
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('index') }}">Workout App</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active(['', 'index']) }}"
+                href="{{ url_for('index') }}">Home</a>
+            </li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active(['', 'index']) }}"
+                href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active('exercises') }}"
+                 href="{{ url_for('exercises') }}">Exercises</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active('meals') }}"
+                 href="{{ url_for('meals') }}">Meals</a>
+            </li>
+          {% endif %}
+        </ul>
+        <span class="me-auto"></span>
+        <ul class="navbar-nav">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#"
+                 id="navbarScrollingDropdown" role="button"
+                 data-bs-toggle="dropdown">
+                <img src="{{ current_user.avatar(24) }}" alt="" width="24"
+                     height="24" class="d-inline-block align-text-top">
+                {{ current_user.username }}
+              </a>
+              <ul class="dropdown-menu navbar-dark bg-dark">
+                <li class="nav-item">
+                  <a class="nav-link {{ nav.is_active(current_user.url_for()) }}"
+                     href="{{ url_for('profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {{ nav.is_active('account') }}"
+                     href="{{ url_for('account') }}">Account</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link"
+                     href="{{ url_for('logout') }}">Logout</a>
+                </li>
+              </ul>
+            </li>
+          {% endif %}
+          {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active('login') }}"
+                 href="{{ url_for('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active('register') }}"
+                 href="{{ url_for('register') }}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
 {% endblock navbar %}
 
 {# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}

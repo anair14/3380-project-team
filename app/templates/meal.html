@@ -1,0 +1,14 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+  <h1>Meal: {{meal.name}}</h1>
+    <p>Exercise for {{ user.first_name }} {{ user.last_name }}</p>
+  <h3>Meal info: <h3>
+    <p>Calories: {{meal.calories}}</p>
+    <p>vegetarian: {{meal.vegetarian}}</p>
+  <form method="post" action="/setmeal">
+    <input type="submit" value='Set {{meal.name}} As Current Meal' name="action2"/>
+  </form>
+{% endblock content %}
+
+{# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}

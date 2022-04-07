@@ -23,16 +23,34 @@ from .json_info import load_exercise
 from .json_info import load_mealplans
 
 
-@app.route('/')
+#@app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Index')
+    return render_template('index.html', title='Home', user = current_user,
+                            currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
+
+@app.route('/')
+@app.route('/home')
+@login_required
+def home():
+    return render_template('home.html', title='Home', user = current_user,
+                            currente = load_exercise.getexercise(current_user.get_exercise()), currentm = load_mealplans.getmealplan(current_user.get_mealplan()))
+
+@app.route('/redirectexercises', methods=['GET','POST'])
+@login_required
+def redirectexercises():
+    return redirect(url_for('exercises'))
+
+@app.route('/redirectmeals', methods=['GET','POST'])
+@login_required
+def redirectmeals():
+    return redirect(url_for('meals'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     form = LoginForm()
 
@@ -42,7 +60,7 @@ def login():
             flash('Invalid username or password.', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('login.html', form=form)
 
 
@@ -171,51 +189,78 @@ def user(username: str):
 @login_required
 @complete_profile_required
 def meal(meal_id: int):
-    return render_template('index.html', title=f'Meal: {meal_id}')
+    print(load_mealplans.getmealplan(meal_id))
+    return render_template('meal.html', title=f'Meal: {meal_id}',
+                            user = current_user, meal = load_mealplans.getmealplan(meal_id))
 
-
-@app.route('/meals')
-@login_required
-@complete_profile_required
-def meals():
-    return render_template('meals.html', title='Meals',
-                            user = current_user, current = load_mealplans.getmealplan(current_user.get_mealplan()), mealplans = load_mealplans.getmealplans())
-
-
-@app.route('/exercises')
-@login_required
-@complete_profile_required
-def exercises():
-    #current_user.set_exercise_weight(1, 140)
-    return render_template('exercises.html', title='Exercises',
-                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
-
-
-@app.route('/exercise/<exercise_id>')
-@login_required
-@complete_profile_required
-def exercise(exercise_id: int):
-    return render_template('index.html', title=f'Exercise: {exercise_id}')
-
-@app.route('/setexercise', methods=['GET','POST'])
+@app.route('/setmeal', methods = ['GET', 'POST'])
 @login_required
 @complete_profile_required
 def setmeal():
     if request.method == 'POST':
-        if request.form.get('action1') == 'Bicep Curls':
-            current_user.setexercise(load_exercise.getexercises()[0].getid())
-        elif request.form.get('action2') == 'Kettlebell Swing':
-            current_user.setexercise(load_exercise.getexercises()[1].getid())
-        elif request.form.get('action3') == 'Goblet Squats':
-            current_user.setexercise(load_exercise.getexercises()[2].getid())
-        elif request.form.get('action4') == 'Deadlifts':
-            current_user.setexercise(load_exercise.getexercises()[0].getid())
-        elif request.form.get('action5') == 'Kettlebell Swing':
-            current_user.setexercise(load_exercise.getexercises()[1].getid())
-        elif request.form.get('action6') == 'Goblet Squats':
-            current_user.setexercise(load_exercise.getexercises()[2].getid())
-    return render_template('exercises.html', title='Exercises',
-                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
+        sw = request.form.get('action2')
+        for meal in load_mealplans.getmealplans():
+            if sw == 'Set ' + str(meal) + ' As Current Meal':
+                current_user.set_mealplan(meal.getid())
+                return redirect(url_for('meals'))
+
+
+@app.route('/meals', methods=['GET', 'POST'])
+@login_required
+@complete_profile_required
+def meals():
+    if request.method == 'POST':
+        sw = request.form.get('action1')
+        #print(load_mealplans.getmealplan_basedonname(sw))
+        return redirect(url_for('meal', meal_id = load_mealplans.getmealplan_basedonname(sw).getid())) 
+    return render_template('meals.html', title='Meals',
+                            user = current_user, current = load_mealplans.getmealplan(current_user.get_mealplan()), mealplans = load_mealplans.getmealplans())
+
+
+@app.route('/exercises', methods=['GET','POST'])
+@login_required
+@complete_profile_required
+def exercises():
+    if request.method == 'POST':
+        sw = request.form.get('action1')
+        return redirect(url_for('exercise', exercise_id = load_exercise.getexercise_basedonname(sw).getid()))
+    else:
+        return render_template('exercises.html', title='Exercises',
+                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises())
+
+
+@app.route('/exercise/<exercise_id>', methods=['GET','POST'])
+@login_required
+@complete_profile_required
+def exercise(exercise_id: int):
+    if(load_exercise.getexercise(exercise_id).isweighted()):
+        return render_template('exerciseweighted.html', title=f'Exercise: {exercise_id}',
+                            user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = load_exercise.getexercise(exercise_id))
+    else:
+        return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
+                            user = current_user, exercise = load_exercise.getexercise(exercise_id))
+
+@app.route('/setexercise', methods=['GET','POST'])
+@login_required
+@complete_profile_required
+def setexercise():
+    if request.method == 'POST':
+        sw = request.form.get('action2')
+        for exercise in load_exercise.getexercises():
+            if sw == 'Set ' + str(exercise) + ' As Current Exercise':
+                current_user.setexercise(exercise.getid())
+                return redirect(url_for('exercises'))
+
+@app.route('/setweight', methods=['GET', 'POST'])
+@login_required
+@complete_profile_required
+def setweight():
+    sw = request.form.get('action2')
+    for exercise in load_exercise.getexercises():
+        if sw == 'Set ' + str(exercise) + "'s weight":
+            current_user.set_exercise_weight(exercise.getid(), request.form['text'])
+            #print(current_user.get_exercise_weight(exercise.getid()))
+    return redirect(url_for('home'))
 
 
 @app.route('/follow/<username>', methods=['POST'])
@@ -257,7 +302,7 @@ def followers_list(username: str):
     user = User.query.filter_by(username=username).first_or_404()
     followers = user.followers
     return render_template(
-        'followers.html', title='Followers', followers=followers
+        'followers.html', title='Followers', followers=followers, user=user
     )
 
 
@@ -266,7 +311,7 @@ def followings_list(username: str):
     user = User.query.filter_by(username=username).first_or_404()
     followed = user.followed
     return render_template(
-        'followed.html', title='Followed', followed=followed
+        'followed.html', title='Followed', followed=followed, user=user
     )
 
 
