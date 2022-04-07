@@ -9,6 +9,8 @@ from ...models.user import User
 @app.route('/reset_password')
 @login_required
 def reset_password():
+    """Debug function to reset the password for the current user to 'test'.
+    """
     current_user.set_password('test')
     db.session.commit()
     flash('Password for current user set to "test".', 'info')
@@ -17,6 +19,11 @@ def reset_password():
 
 @app.route('/reset_password/<username>')
 def reset_password_username(username: str):
+    """Debug function to reset the password for user with given username to
+    'test'.
+
+    :param username: string username of the user
+    """
     user = User.query.filter_by(username=username).first()
     user.set_password('test')
     db.session.commit()

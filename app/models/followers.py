@@ -1,6 +1,7 @@
 from . import db
 
 
+"""Mapping table for users and their followers."""
 followers = db.Table(
     'followers',
     db.Column(

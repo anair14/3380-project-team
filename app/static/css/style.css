@@ -1,5 +1,6 @@
+
 body {
-    background-color: rgb(238, 238, 238);
+    background-color: #f5f7f7;
   }
   h1 {
     color: black;
@@ -7,8 +8,13 @@ body {
   p {
     color: rgba(216, 40, 40, 0.712);
   }
-
-.main-content {
-  margin-top: 1.5rem !important;
-  margin-bottom: 1.5rem !important;
-}
+  h3 {
+    color:rgba(158, 11, 11, 0.712);
+  }
+  h4 {
+    color: black;
+  }
+  .main-content {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }

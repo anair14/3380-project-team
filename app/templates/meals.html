@@ -1,10 +1,18 @@
 {% extends 'extends/__base.html' %}
 
 {% block content %}
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+  <style>
+  body {
+    font-family: "Audiowide", sans-serif;
+  }
+  </style>
+  </head>
   <h1>{{ title }}</h1>
   <p>Mealplans for {{ user.first_name }} {{ user.last_name }}</p>
-  <p>Current Mealplan: {{current.name}}</p>
-  <h3>Pick a Meal<h3>
+  <h3>Current Mealplan: {{current.name}}</h3>
+  <h4>Pick a Meal<h4>
     <form method="post" action="/meals">
         <input type="submit" value='{{mealplans[0]}}' name="action1"/>
         <input type="submit" value='{{mealplans[1]}}' name="action1" />
