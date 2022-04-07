@@ -144,17 +144,17 @@ class User(UserMixin, db.Model):
             return self.exercise_weight[i]
         #if we haven't customized the weight, return the default weight based on bmi
         else:
-            return exerciseplan.getweight(exercise_id, self.height, self.weight)
+            return exerciseplan.get_weight(exercise_id, self.height, self.weight)
 
     #set the users current exercise
-    def setexercise(self, exercise_id):
+    def set_exercise(self, exercise_id):
         self.current_exercise_id = exercise_id
         db.session.commit()
 
     #get a list of all exercise weights
     def get_exercise_weights(self):
         weights = []
-        for e in exerciseplan.getwexercises():
+        for e in exerciseplan.get_w_exercises():
             weights.append([id, self.get_exercise_weight(e.getid())])
         return weights
 

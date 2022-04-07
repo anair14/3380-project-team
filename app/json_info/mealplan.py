@@ -18,7 +18,7 @@ class Meal():
         return self.calories
 
     #get id of mealplan
-    def getid(self):
+    def get_id(self):
         return self.id
 
     #string representation of mealplan
@@ -46,7 +46,7 @@ class MealPlan():
             i = i+ 1
 
     #get specific mealplan with id
-    def getmealplan(self, id):
+    def get_mealplan(self, id):
         id = int(id)
         for mealplan in self.mealplans_v:
             if mealplan.id == id:
@@ -57,7 +57,7 @@ class MealPlan():
         return None
 
     #get specific mealplan with name
-    def getmealplan_basedonname(self, name):
+    def get_mealplan_based_on_name(self, name):
         for mealplan in self.mealplans_v:
             if mealplan.name == name:
                 return mealplan
@@ -67,16 +67,16 @@ class MealPlan():
         return None
 
     #get all mealplans
-    def getmealplans(self):
+    def get_mealplans(self):
         #ensure blank meal doesn't get used
         return self.mealplans + self.mealplans_v[1:]
 
     #get vegetarian mealplans
-    def getmealplansv(self):
+    def get_mealplansv(self):
         return self.mealplans_v
 
     #get nonvegetarian mealplans
-    def getmealplansnv(self):
+    def get_mealplansnv(self):
         return self.mealplans
 
 

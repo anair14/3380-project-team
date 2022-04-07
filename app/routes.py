@@ -37,7 +37,7 @@ def index():
 @login_required
 def home():
     return render_template('home.html', title='Home', user = current_user,
-                            currente = exerciseplan.getexercise(current_user.get_exercise()), currentm = mealplans.getmealplan(current_user.get_mealplan()))
+                            currente = exerciseplan.get_exercise(current_user.get_exercise()), currentm = mealplans.get_mealplan(current_user.get_mealplan()))
 
 #redirect to all exercises
 @app.route('/redirectexercises', methods=['GET','POST'])
@@ -195,9 +195,9 @@ def user(username: str):
 @complete_profile_required
 #must input id of meal looking at, allows function to be general for all meals
 def meal(meal_id: int):
-    print(mealplans.getmealplan(meal_id))
+    print(mealplans.get_mealplan(meal_id))
     return render_template('meal.html', title=f'Meal: {meal_id}',
-                            user = current_user, meal = mealplans.getmealplan(meal_id))
+                            user = current_user, meal = mealplans.get_mealplan(meal_id))
 
 #set the users current mealplan, method to respond to the button in /meal/<meal_id>
 @app.route('/setmeal', methods = ['GET', 'POST'])
@@ -206,10 +206,10 @@ def meal(meal_id: int):
 def setmeal():
     if request.method == 'POST':
         sw = request.form.get('action2')
-        for meal in mealplans.getmealplans():
+        for meal in mealplans.get_mealplans():
             #determine which meal is being set to the current
             if sw == 'Set ' + str(meal) + ' As Current Meal':
-                current_user.set_mealplan(meal.getid())
+                current_user.set_mealplan(meal.get_id())
                 #redirect back to all meals after setting current
                 return redirect(url_for('meals'))
 
@@ -221,10 +221,10 @@ def meals():
     #if a button is pressed, determine which button was pressed and redirect to the correct mealplan
     if request.method == 'POST':
         sw = request.form.get('action1')
-        return redirect(url_for('meal', meal_id = mealplans.getmealplan_basedonname(sw).getid())) 
+        return redirect(url_for('meal', meal_id = mealplans.get_mealplan_based_on_name(sw).get_id())) 
     #if button wasn't pressed, simply display meals
     return render_template('meals.html', title='Meals',
-                            user = current_user, current = mealplans.getmealplan(current_user.get_mealplan()), mealplans = mealplans.getmealplans())
+                            user = current_user, current = mealplans.get_mealplan(current_user.get_mealplan()), mealplans = mealplans.get_mealplans())
 
 #view all exercises, also handles button to view specific exercise
 @app.route('/exercises', methods=['GET','POST'])
@@ -234,11 +234,11 @@ def exercises():
     #if button is pressed, determine which button was pressed and redirect to the correct exercise
     if request.method == 'POST':
         sw = request.form.get('action1')
-        return redirect(url_for('exercise', exercise_id = exerciseplan.getexercise_basedonname(sw).getid()))
+        return redirect(url_for('exercise', exercise_id = exerciseplan.get_exercise_based_on_name(sw).get_id()))
     #if button wasn't pressed, simply display all exercises
     else:
         return render_template('exercises.html', title='Exercises',
-                           user=current_user, current = exerciseplan.getexercise(current_user.get_exercise()), exercises = exerciseplan.getexercises())
+                           user=current_user, current = exerciseplan.get_exercise(current_user.get_exercise()), exercises = exerciseplan.get_exercises())
 
 #view a specific exercise 
 #handles both weighted and unweighted exercises
@@ -247,14 +247,14 @@ def exercises():
 @complete_profile_required
 def exercise(exercise_id: int):
     #determine if the exercise associated with exercise_id is weighted or not
-    if(exerciseplan.getexercise(exercise_id).isweighted()):
+    if(exerciseplan.get_exercise(exercise_id).is_weighted()):
         #display weighted exercise, utilizes current_user.get_exercise_weight to account for custom weights
         return render_template('exerciseweighted.html', title=f'Exercise: {exercise_id}',
-                            user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = exerciseplan.getexercise(exercise_id))
+                            user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = exerciseplan.get_exercise(exercise_id))
     else:
         #display unweighted exercise
         return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
-                            user = current_user, exercise = exerciseplan.getexercise(exercise_id))
+                            user = current_user, exercise = exerciseplan.get_exercise(exercise_id))
 
 #set current exercise, responds to button in /exercise/<exercise_id>
 @app.route('/setexercise', methods=['GET','POST'])
@@ -264,9 +264,9 @@ def setexercise():
     if request.method == 'POST':
         sw = request.form.get('action2')
         #determine which exercise to set to current
-        for exercise in exerciseplan.getexercises():
+        for exercise in exerciseplan.get_exercises():
             if sw == 'Set ' + str(exercise) + ' As Current Exercise':
-                current_user.setexercise(exercise.getid())
+                current_user.set_exercise(exercise.get_id())
                 return redirect(url_for('exercises'))
 
 #set a custom weight for an exercise
@@ -277,10 +277,10 @@ def setexercise():
 def setweight():
     sw = request.form.get('action2')
     #determine which exercise to set the weight for 
-    for exercise in exerciseplan.getexercises():
+    for exercise in exerciseplan.get_exercises():
         if sw == 'Set ' + str(exercise) + "'s weight":
             #set the weight for current_user to whatever is pulled from the text box
-            current_user.set_exercise_weight(exercise.getid(), request.form['text'])
+            current_user.set_exercise_weight(exercise.get_id(), request.form['text'])
     return redirect(url_for('home'))
 
 

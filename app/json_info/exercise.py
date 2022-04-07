@@ -29,7 +29,7 @@ class Exercise():
 
 
     #get the weight for an exercise based on a user's bmi
-    def getweight(self, bmi):
+    def get_weight(self, bmi):
         if self.weighted:
             if bmi < 18.5:
                 return self.weight_light
@@ -41,11 +41,11 @@ class Exercise():
             return None
 
     #return whether or not an exercise requires weights
-    def isweighted(self):
+    def is_weighted(self):
         return self.weighted
 
     #get weight id
-    def getid(self):
+    def get_id(self):
         return self.id
 
     #string version of exercise
@@ -76,17 +76,17 @@ class ExercisePlan():
             i = i+1
 
     #get all exercises
-    def getexercises(self):
+    def get_exercises(self):
         #ensure the blank exercise doesn't get used
         return self.exercises_weighted + self.exercisesn_weighted[1:]
 
     #get weighted exercises
-    def getwexercises(self):
+    def get_w_exercises(self):
         return self.exercises_weighted
             
 
     #get specific exercise based off id   
-    def getexercise(self, id: int):
+    def get_exercise(self, id: int):
         id = int(id)
         #run through both weighted and unweighted exercises
         for exercise in self.exercises_weighted:
@@ -99,7 +99,7 @@ class ExercisePlan():
         return None
 
     #get specific exercise baed off id
-    def getexercise_basedonname(self, name):
+    def get_exercise_based_on_name(self, name):
         for exercise in self.exercises_weighted:
             if exercise.name == name:
                 return exercise
@@ -110,10 +110,10 @@ class ExercisePlan():
 
     #get a specific exercises weight based on it's id, 
     #and the users personal info
-    def getweight(self, id, height, weight):
+    def get_weight(self, id, height, weight):
         bmi = weight/height
-        e = self.getexercise(id)
-        return e.getweight(bmi)
+        e = self.get_exercise(id)
+        return e.get_weight(bmi)
         
 
 
