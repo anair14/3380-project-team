@@ -226,7 +226,7 @@ def exercises():
         return redirect(url_for('exercise', exercise_id = load_exercise.getexercise_basedonname(sw).getid()))
     else:
         return render_template('exercises.html', title='Exercises',
-                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises(), weights = current_user.get_exercise_weights())
+                           user=current_user, current = load_exercise.getexercise(current_user.get_exercise()), exercises = load_exercise.getexercises())
 
 
 @app.route('/exercise/<exercise_id>', methods=['GET','POST'])
@@ -246,11 +246,22 @@ def exercise(exercise_id: int):
 def setexercise():
     if request.method == 'POST':
         sw = request.form.get('action2')
-        print(sw)
         for exercise in load_exercise.getexercises():
             if sw == 'Set ' + str(exercise) + ' As Current Exercise':
                 current_user.setexercise(exercise.getid())
                 return redirect(url_for('exercises'))
+
+@app.route('/setweight', methods=['GET', 'POST'])
+@login_required
+@complete_profile_required
+def setweight():
+    sw = request.form.get('action2')
+    for exercise in load_exercise.getexercises():
+        if sw == 'Set ' + str(exercise) + "'s weight":
+            current_user.set_exercise_weight(exercise.getid(), request.form['text'])
+            #print(current_user.get_exercise_weight(exercise.getid()))
+    return redirect(url_for('home'))
+
 
 @app.route('/follow/<username>', methods=['POST'])
 @login_required

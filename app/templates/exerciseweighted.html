@@ -11,6 +11,10 @@
   <form method="post" action="/setexercise">
     <input type="submit" value='Set {{exercise.name}} As Current Exercise' name="action2"/>
   </form>
+  <form method="post" action= "/setweight">
+    <input type="submit" value="Set {{exercise.name}}'s weight" name ='action2'/>
+      <input name = "text"/>
+  </form>
 {% endblock content %}
 
 {# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}
