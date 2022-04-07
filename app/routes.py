@@ -226,7 +226,11 @@ def exercises():
 @login_required
 @complete_profile_required
 def exercise(exercise_id: int):
-    return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
+    if(load_exercise.getexercise(exercise_id).isweighted()):
+        return render_template('exerciseweighted.html', title=f'Exercise: {exercise_id}',
+                            user = current_user, weight = current_user.get_exercise_weight(exercise_id), exercise = load_exercise.getexercise(exercise_id))
+    else:
+        return render_template('exercise.html', title=f'Exercise: {exercise_id}', 
                             user = current_user, exercise = load_exercise.getexercise(exercise_id))
 
 @app.route('/setexercise', methods=['GET','POST'])

@@ -38,6 +38,9 @@ class Exercise():
         else:
             return None
 
+    def isweighted(self):
+        return self.weighted
+
     def getid(self):
         return self.id
 

@@ -1,0 +1,16 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+  <h1>Exercise: {{exercise.name}}</h1>
+    <p>Exercise for {{ user.first_name }} {{ user.last_name }}</p>
+  <h3>Exercise info: <h3>
+    <p>Calories: {{exercise.calories}}</p>
+    <p>Difficulty: {{exercise.diff}}</p>
+    <p>Type: {{exercise.type}}</p>
+    <p>Weight: {{weight}}</p>
+  <form method="post" action="/setexercise">
+    <input type="submit" value='Set {{exercise.name}} As Current Exercise' name="action2"/>
+  </form>
+{% endblock content %}
+
+{# vim: set ft=jinja ts=2 sw=2 sts=2 et: #}
