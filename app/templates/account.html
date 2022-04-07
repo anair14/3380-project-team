@@ -1,6 +1,14 @@
 {% extends 'extends/__base.html' %}
 
 {% block content %}
+<head>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+   <style>
+   body {
+     font-family: "Audiowide", sans-serif;
+   }
+   </style>
+   </head>
   {% if user.profile_completed %}
   <h1>{{ user.first_name }} {{ user.last_name }}'s Account</h1>
   {% else %}
