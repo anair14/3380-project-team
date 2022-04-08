@@ -48,6 +48,7 @@ class User(UserMixin, db.Model):
     exercise_weight_id = db.Column(db.PickleType(), nullable=True)
     exercise_weight = db.Column(db.PickleType(), nullable=True)
     current_mealplan_id = db.Column(db.Integer())
+    posts = db.relationship('Post', backref='author')
 
     followed = db.relationship(
         'User',

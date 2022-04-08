@@ -1,0 +1,17 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+
+    <h3>Do you want to post this exercise?</h3>
+    <form method="post" action="{{ exercise_id }}" role="form">
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post(cols=32, rows=4, type='text') }}<br>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(type='submit') }}</p>
+    </form>
+
+{% endblock content %}

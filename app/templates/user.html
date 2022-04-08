@@ -42,6 +42,9 @@
     <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
   </ul>
   <p>Posts:</p>
+  {% for post in posts %}
+        {% include '_post.html' %}
+    {% endfor %}
   {% endif %}
   </div>
 </div>
