@@ -2,6 +2,14 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+  <style>
+  body {
+    font-family: "Audiowide", sans-serif;
+  }
+  </style>
+  </head>
   <h1>Change Username</h1>
   {{ render_form(form) }}
   <a class="btn btn-primary" href="{{ url_for('account') }}"

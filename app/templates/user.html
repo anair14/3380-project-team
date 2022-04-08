@@ -2,13 +2,21 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+  <style>
+  body {
+    font-family: "Audiowide", sans-serif;
+  }
+  </style>
+  </head>
  <center>
- <div class="card" style="width: 18rem; margin-top: 20px;">
+ <div class="card" style="width: 30rem; margin-top: 20px;">
   {% if user.profile_completed %}
-  <table style="margin-bottom: 20px;">
+  <table style="margin-bottom: 30px;">
      <tr valign="top">
          <td><img src="{{ user.avatar(100) }}"></td>
-         <td style="padding-top: 30px;"><h1 class="card-title">{{ user.username }}</h1></td>
+         <td style="padding-top: 50px;"><h1 class="card-title">{{ user.username }}</h1></td>
      </tr>
   </table>
   {% else %}
