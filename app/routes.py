@@ -190,7 +190,7 @@ def user(username: str):
     user = User.query.filter_by(username=username).first_or_404()
     posts = user.posts
     form = EmptyForm()
-    return render_template('user.html', user=user, posts=posts, form=form)
+    return render_template('user.html', user=user, posts=posts, form=form, exerciseplan=exerciseplan)
 
 #looking at a specific mealplan
 @app.route('/meal/<meal_id>')
@@ -358,11 +358,11 @@ def followings_list(username: str):
         'followed.html', title='Followed', followed=followed, user=user
     )
 
-@app.route('/friends')
-def friends():
+@app.route('/social')
+def social():
     posts = current_user.followed_posts().all()
-    return render_template("friends.html", title='Social',
-                           posts=posts)
+    return render_template("social.html", title='Social',
+                           posts=posts, exerciseplan=exerciseplan)
 
 
 

@@ -30,6 +30,10 @@
               <a class="nav-link {{ nav.is_active('meals') }}"
                  href="{{ url_for('meals') }}">Meals</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link {{ nav.is_active('social') }}"
+                 href="{{ url_for('social') }}">Social</a>
+            </li>
           {% endif %}
         </ul>
         <span class="me-auto"></span>

@@ -15,15 +15,11 @@
       <p>Calories: {{currente.calories}}</p>
       <p>Difficulty: {{currente.diff}}</p>
       <p>Type: {{currente.type}}</p>
-      <form method="post" action= "/redirectexercises">
-        <input type="submit" value="Look at all Exercises" name="action1"/>
-      </form>
+    <a class="btn btn-primary" href="{{ url_for('exercises') }}" role="button">Exercises</a>
     <h2>Current Mealplan: {{currentm.name}}</h2>
       <p>Calories: {{currentm.calories}}</p>
       <p>vegetarian: {{currentm.vegetarian}}</p>
-      <form method="post" action= "/redirectmeals">
-        <input type="submit" value="Look at all Meals" name="action1"/>
-      </form>
+      <a class="btn btn-primary" href="{{ url_for('meals') }}" role="button">Meals</a>
   </body>
 {% endblock content %}
 

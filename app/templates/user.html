@@ -50,9 +50,11 @@
     <a class="btn btn-primary" href="{{ url_for('edit_profile') }}" role="button">Edit</a>
   </ul>
   <p>Posts:</p>
+  <ul class="list-group list-group-flush">
   {% for post in posts %}
-        {% include '_post.html' %}
-    {% endfor %}
+      <li class="list-group-item">{% include 'include/_post.html' %}</li>
+  {% endfor %}
+  </ul>
   {% endif %}
   </div>
 </div>
