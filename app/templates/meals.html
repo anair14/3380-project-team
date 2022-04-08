@@ -10,7 +10,7 @@
   </style>
   </head>
   <h1>{{ title }}</h1>
-  <p>Mealplans for {{ user.first_name }} {{ user.last_name }}</p>
+  <p>Mealplans for <span style="color: rgb(255, 199, 17);;font-weight:bold">{{ user.first_name }} {{ user.last_name }}</span></p>
   <h3>Current Mealplan: {{current.name}}</h3>
   <h4>Pick a Meal<h4>
     <form method="post" action="/meals">
