@@ -10,6 +10,7 @@ from flask_login import (current_user,
                          login_required)
 
 from .models import db
+from .models.posts import Post
 from .models.user import User
 from .utils import complete_profile_required
 from .forms import (RegistrationForm,
@@ -18,6 +19,7 @@ from .forms import (RegistrationForm,
                     ChangePasswordForm,
                     ChangeUsernameForm,
                     ChangeEmailForm,
+                    PostForm,
                     EmptyForm)
 from .json_info import exercise
 from .json_info import mealplan
@@ -186,8 +188,9 @@ def change_username():
 @login_required
 def user(username: str):
     user = User.query.filter_by(username=username).first_or_404()
+    posts = user.posts
     form = EmptyForm()
-    return render_template('user.html', user=user, form=form)
+    return render_template('user.html', user=user, posts=posts, form=form)
 
 #looking at a specific mealplan
 @app.route('/meal/<meal_id>')
@@ -267,7 +270,23 @@ def setexercise():
         for exercise in exerciseplan.get_exercises():
             if sw == 'Set ' + str(exercise) + ' As Current Exercise':
                 current_user.set_exercise(exercise.get_id())
-                return redirect(url_for('exercises'))
+                return redirect(url_for('postexercise', exercise_id=exercise.get_id()))
+
+@app.route('/postexercise/<exercise_id>', methods=['GET', 'POST'])
+@login_required
+@complete_profile_required
+def postexercise(exercise_id):
+    form = PostForm()
+    print("==============================================================1")
+    if not form.validate_on_submit():
+        print("==============================================================2")
+        post = Post(exercise=exercise_id, body=form.post.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('exercises'))
+    return render_template('postexercise.html', user=current_user, form=form,
+                           exercise=exerciseplan.get_exercise(exercise_id))
 
 #set a custom weight for an exercise
 #responds to button in /exercise/<exercise_id>
@@ -334,6 +353,12 @@ def followings_list(username: str):
     return render_template(
         'followed.html', title='Followed', followed=followed, user=user
     )
+
+@app.route('/friends')
+def friends():
+    posts = current_user.followed_posts().all()
+    return render_template("friends.html", title='Social',
+                           posts=posts)
 
 
 

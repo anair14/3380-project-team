@@ -6,6 +6,7 @@ from wtforms import (StringField,
                      DateField,
                      FloatField,
                      EmailField,
+                     TextAreaField,
                      FieldList)
 from wtforms.validators import (DataRequired,
                                 Email,
@@ -120,5 +121,10 @@ class ChangeUsernameForm(FlaskForm):
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Tell your friends something about this exercise')
+                       #  validators=[Length(max=140, message='Post is too long')])
+    submit = SubmitField('Post')
 
 # vim: ft=python ts=4 sw=4 sts=4 et
