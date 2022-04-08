@@ -2,6 +2,7 @@
 
 {% block content %}
 <head>
+  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
   <style>
   body {
@@ -11,8 +12,8 @@
   </head>
   <h1>{{ title }}</h1>
   <p>Exercises for {{ user.first_name }} {{ user.last_name }}</p>
-  <p>Current Exercise:  {{current.name}}</p>
-  <h3>Pick an Exercise <h3>
+  <h3>Current Exercise:  {{current.name}}</h3>
+  <h4>Pick an Exercise <h4>
     <form method="post" action="/exercises">
         <input type="submit" value='{{exercises[0]}}' name="action1"/>
         <input type="submit" value='{{exercises[1]}}' name="action1" />

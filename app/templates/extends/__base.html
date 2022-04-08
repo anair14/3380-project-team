@@ -8,13 +8,15 @@
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>
-          {% block title %}{{ title }}{% endblock title %}
+          {% block title %}{{ title }}
+
+          {% endblock title %}
         </title>
       {% endblock metas %}
       {% block styles %}
         {{ bootstrap.load_css() }}
         <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/styles.css') }}">
+              href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet"
               href="{{ url_for('static', filename='css/signin.css') }}">
         <link rel="stylesheet"
