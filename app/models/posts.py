@@ -12,7 +12,7 @@ class Post(db.Model):
         return '<Post {}>'.format(self.body)
 
     def post(self, user):
-        self.post.append(user)
+        self.posts.append(user)
 
     def followed_posts(self):
         followed = Post.query.join(

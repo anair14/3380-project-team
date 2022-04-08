@@ -277,14 +277,18 @@ def setexercise():
 @complete_profile_required
 def postexercise(exercise_id):
     form = PostForm()
-    print("==============================================================1")
-    if not form.validate_on_submit():
-        print("==============================================================2")
-        post = Post(exercise=exercise_id, body=form.post.data)
-        db.session.add(post)
-        db.session.commit()
-        flash('Your post is now live!')
-        return redirect(url_for('exercises'))
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            post = Post(
+                user_id=current_user.id,
+                exercise=exercise_id,
+                body=form.post.data
+            )
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post is now live!')
+            return redirect(url_for('exercises'))
     return render_template('postexercise.html', user=current_user, form=form,
                            exercise=exerciseplan.get_exercise(exercise_id))
 

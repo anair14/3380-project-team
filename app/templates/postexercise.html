@@ -1,17 +1,13 @@
 {% extends 'extends/__base.html' %}
 
 {% block content %}
-
-    <h3>Do you want to post this exercise?</h3>
-    <form method="post" action="{{ exercise_id }}" role="form">
-        <p>
-            {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4, type='text') }}<br>
-            {% for error in form.post.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit(type='submit') }}</p>
-    </form>
-
+  <form method="post" action="" role="form">
+    <h1 class="h3 mb-auto-3 fw-normal">Do you want to post this exercise?</h1>
+    {{ form.csrf_token }}
+    <div class="form-floating">
+      {{ form.post(class_='form-control', id='floatingInput', type='username', placeholder=form.post.description) }}
+      {{ form.post.label }}
+    </div>
+    {{ form.submit(class='w-100 btn btn-lg btn-primary', type='submit') }}
+  </form>
 {% endblock content %}

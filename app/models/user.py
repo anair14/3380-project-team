@@ -270,4 +270,12 @@ class User(UserMixin, db.Model):
         """
         return f'/user/{self.username}'
 
+    def post_count(self) -> int:
+        """Returns the number of posts authored by the current user.
+
+        :return: integer number of posts
+        """
+        return len(list(self.posts))
+
+
 # vim: ft=python ts=4 sw=4 sts=4 et
