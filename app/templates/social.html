@@ -1,0 +1,12 @@
+{% extends 'extends/__base.html' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+<ul class="list-group list-group-flush">
+  {% for post in posts %}
+      <li class="list-group-item">{% include 'include/_post.html' %}</li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}
