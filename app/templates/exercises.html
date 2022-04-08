@@ -11,7 +11,7 @@
   </style>
   </head>
   <h1>{{ title }}</h1>
-  <p>Exercises for {{ user.first_name }} {{ user.last_name }}</p>
+  <p>Exercises for <span style="color: rgb(255, 199, 17);;font-weight:bold">{{ user.first_name }} {{ user.last_name }}</span></p>
   <h3>Current Exercise:  {{current.name}}</h3>
   <h4>Pick an Exercise <h4>
     <form method="post" action="/exercises">
