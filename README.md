@@ -26,6 +26,26 @@ source venv/bin/activate
 pip install -r requirements.txt -r requirements-dev.txt
 ```
 
+## Database Setup
+The database must be configured before running the application.
+
+If you have GNU make installed on your system, you can run:
+
+```shell
+make db-re
+```
+
+If you do not have make installed, run:
+
+```shell
+flask db init
+flask db migrate
+flask db upgrade
+```
+
+This will create a new database from scratch without any users registered.
+You are then able to register a new user and sign in.
+
 ## Running
 Once you have everything installed, you can run the app by running the following
 commands in the project directory:
